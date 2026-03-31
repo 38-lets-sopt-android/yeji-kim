@@ -1,1 +1,2 @@
-# 드디어 시작!! 안드쫀쿠 화이팅✌️✌️
+# LETS-SOPT-ANDROID_TEMPLATE
+LETS SOPT Android 과제 템플릿입니다~
