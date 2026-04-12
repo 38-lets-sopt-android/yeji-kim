@@ -37,6 +37,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -106,7 +107,7 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(36.dp))
-        Text(text = "이메일", color = Color(0xFF999999))
+        Text(text = "이메일", color = Color(0xFF999999), fontWeight = FontWeight.W400)
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
             value = mail,
@@ -129,12 +130,13 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
             }
         )
         Spacer(modifier = Modifier.height(18.dp))
-        Text(text = "비밀번호", color = Color(0xFF999999))
+        Text(text = "비밀번호", color = Color(0xFF999999), fontWeight = FontWeight.W400)
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
             value = password,
             onValueChange = { password = it },
             textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
+            visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             decorationBox = { innerTextField ->
                 Box(
@@ -152,12 +154,13 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
             }
         )
         Spacer(modifier = Modifier.height(18.dp))
-        Text(text = "비밀번호 확인", color = Color(0xFF999999))
+        Text(text = "비밀번호 확인", color = Color(0xFF999999), fontWeight = FontWeight.W400)
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
             value = passwordConfirm,
             onValueChange = { passwordConfirm = it },
             textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
+            visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             decorationBox = { innerTextField ->
                 Box(
@@ -179,19 +182,30 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
 
         Button(
             onClick = {
-                val errorMessage = validateSignUp(mail, password, passwordConfirm)
-
-                if (errorMessage == null) {
-                    Toast.makeText(context, "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                    val intent = Intent().apply {
-                        putExtra("mail", mail)
-                        putExtra("password", password)
+                when {
+                    !EMAIL_ADDRESS.matcher(mail).matches() -> {
+                        Toast.makeText(context, "이메일 형식이 맞지 않습니다.", Toast.LENGTH_SHORT).show()
                     }
-                    val activity = context as? Activity
-                    activity?.setResult(Activity.RESULT_OK, intent)
-                    activity?.finish()
-                } else {
-                    Toast.makeText(context, "이메일 혹인 비밀번호 형식이 맞지 않습니다.", Toast.LENGTH_SHORT).show()
+
+                    password.length !in 8..12 -> {
+                        Toast.makeText(context, "비밀번호는 8자 이상 12자 이하로 입력하세요.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    password != passwordConfirm -> {
+                        Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> {
+                        Toast.makeText(context, "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent().apply {
+                            putExtra("mail", mail)
+                            putExtra("password", password)
+                        }
+                        val activity = context as? Activity
+                        activity?.setResult(Activity.RESULT_OK, intent)
+                        activity?.finish()
+                    }
                 }
             },
             enabled = isAllEntered,
@@ -207,7 +221,7 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
             ),
             shape = RoundedCornerShape(8.dp)
         ) {
-            Text("회원가입")
+            Text("회원가입", fontWeight = FontWeight.Bold)
         }
     }
 }
