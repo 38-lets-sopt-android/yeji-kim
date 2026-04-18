@@ -1,4 +1,4 @@
-package com.example.letssopt.presentation
+package com.example.letssopt.ui.theme
 
 import android.app.Activity
 import android.content.Intent
@@ -38,17 +38,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.letssopt.R
-import com.example.letssopt.ui.theme.LETSSOPTTheme
 import android.graphics.Color as AndroidColor
+
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,8 +71,6 @@ class LoginActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(name: String, modifier: Modifier = Modifier) {
-    val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
-    val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
     var mail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var realMail by remember { mutableStateOf("") }
@@ -102,7 +97,6 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
             fontSize = 36.sp,
             color = Color(0xFFE8003C),
             fontWeight = FontWeight.Bold,
-            fontFamily = pretendardBold,
             modifier = Modifier
                 .padding(top = 60.dp)
                 .align(Alignment.CenterHorizontally)
@@ -112,11 +106,10 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
             text = "이메일로 로그인",
             fontSize = 20.sp,
             color = Color(0xFFFFFFFF),
-            fontWeight = FontWeight.Bold,
-            fontFamily = pretendardBold
+            fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(36.dp))
-        Text(text = "이메일", color = Color(0xFF999999), fontWeight = FontWeight.W400, fontFamily = pretendardRegular)
+        Text(text = "이메일", color = Color(0xFF999999))
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
             value = mail,
@@ -132,14 +125,14 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (mail.isEmpty()) {
-                        Text("이메일 주소를 입력하세요", color = Color(0xFF666666), fontFamily = pretendardRegular)
+                        Text("이메일을 입력하세요", color = Color(0xFF666666))
                     }
                     innerTextField()
                 }
             }
         )
         Spacer(modifier = Modifier.height(18.dp))
-        Text(text = "비밀번호", color = Color(0xFF999999), fontWeight = FontWeight.W400, fontFamily = pretendardRegular)
+        Text(text = "비밀번호", color = Color(0xFF999999))
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
             value = password,
@@ -156,7 +149,7 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (password.isEmpty()) {
-                        Text("비밀번호를 입력하세요", color = Color(0xFF666666), fontFamily = pretendardRegular)
+                        Text("비밀번호를 입력하세요", color = Color(0xFF666666))
                     }
                     innerTextField()
                 }
@@ -165,11 +158,7 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.weight(1f))
 
         Text(
-            text = "아직 계정이 없으신가요? 회원가입",
-            fontSize = 14.sp,
-            color = Color(0xFF999999),
-            fontWeight = FontWeight.W400,
-            fontFamily = pretendardRegular,
+            text = "아직 계정이 없으신가요? 회원가입", fontSize = 14.sp, color = Color(0xFF999999),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .clickable(onClick = {
@@ -181,24 +170,16 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
 
         Button(
             onClick = {
-                when {
-                    mail != realMail -> {
-                        Toast.makeText(context, "이메일이 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
+                if (mail == realMail && password == realPassword) {
+                    val intent = Intent(context, MainActivity::class.java).apply {
+                        putExtra("mail", mail)
+                        putExtra("password", password)
                     }
-
-                    password != realPassword -> {
-                        Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
-                    }
-
-                    else -> {
-                        Toast.makeText(context, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(context, MainActivity::class.java).apply {
-                            putExtra("mail", mail)
-                            putExtra("password", password)
-                        }
-                        context.startActivity(intent)
-                        (context as? Activity)?.finish()
-                    }
+                    Toast.makeText(context, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                    context.startActivity(intent)
+                    (context as? Activity)?.finish()
+                } else {
+                    Toast.makeText(context, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier
@@ -208,13 +189,25 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE8003C)),
             shape = RoundedCornerShape(8.dp)
         ) {
-            Text("로그인", color = Color.White, fontWeight = FontWeight.Bold, fontFamily = pretendardBold)
+            Text("로그인", color = Color.White)
         }
     }
+}
+
+@Composable
+fun BasicField(
+    value: String,
+    onValueChange: () -> Unit,
+    placeholder: () -> Unit,
+    visualTransformation: PasswordVisualTransformation,
+    keyboardOptions: KeyboardOptions,
+    modifier: Modifier
+) {
+    TODO("Not yet implemented")
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun LoginScreenPreview() {
-    LETSSOPTTheme { LoginScreen(name = "Android") }
+    LETSSOPTTheme { }
 }
