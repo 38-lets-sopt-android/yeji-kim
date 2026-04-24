@@ -53,6 +53,15 @@ import android.graphics.Color as AndroidColor
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val pref = getSharedPreferences("LoginPref", MODE_PRIVATE)
+        val isAutoLogin = pref.getBoolean("autoLogin", false)
+
+        if (isAutoLogin) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
         enableEdgeToEdge(
             navigationBarStyle = SystemBarStyle.light(
                 AndroidColor.WHITE, AndroidColor.WHITE
@@ -116,7 +125,12 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
             fontFamily = pretendardBold
         )
         Spacer(modifier = Modifier.height(36.dp))
-        Text(text = "이메일", color = Color(0xFF999999), fontWeight = FontWeight.W400, fontFamily = pretendardRegular)
+        Text(
+            text = "이메일",
+            color = Color(0xFF999999),
+            fontWeight = FontWeight.W400,
+            fontFamily = pretendardRegular
+        )
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
             value = mail,
@@ -132,14 +146,23 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (mail.isEmpty()) {
-                        Text("이메일 주소를 입력하세요", color = Color(0xFF666666), fontFamily = pretendardRegular)
+                        Text(
+                            "이메일 주소를 입력하세요",
+                            color = Color(0xFF666666),
+                            fontFamily = pretendardRegular
+                        )
                     }
                     innerTextField()
                 }
             }
         )
         Spacer(modifier = Modifier.height(18.dp))
-        Text(text = "비밀번호", color = Color(0xFF999999), fontWeight = FontWeight.W400, fontFamily = pretendardRegular)
+        Text(
+            text = "비밀번호",
+            color = Color(0xFF999999),
+            fontWeight = FontWeight.W400,
+            fontFamily = pretendardRegular
+        )
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
             value = password,
@@ -156,7 +179,11 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (password.isEmpty()) {
-                        Text("비밀번호를 입력하세요", color = Color(0xFF666666), fontFamily = pretendardRegular)
+                        Text(
+                            "비밀번호를 입력하세요",
+                            color = Color(0xFF666666),
+                            fontFamily = pretendardRegular
+                        )
                     }
                     innerTextField()
                 }
@@ -191,6 +218,13 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
                     }
 
                     else -> {
+                        val pref = context.getSharedPreferences("LoginPref", Activity.MODE_PRIVATE)
+                        pref.edit().apply {
+                            putString("mail", mail)
+                            putBoolean("autoLogin", true)
+                            apply()
+                        }
+
                         Toast.makeText(context, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
                         val intent = Intent(context, MainActivity::class.java).apply {
                             putExtra("mail", mail)
@@ -208,7 +242,12 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE8003C)),
             shape = RoundedCornerShape(8.dp)
         ) {
-            Text("로그인", color = Color.White, fontWeight = FontWeight.Bold, fontFamily = pretendardBold)
+            Text(
+                "로그인",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontFamily = pretendardBold
+            )
         }
     }
 }
