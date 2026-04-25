@@ -25,7 +25,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -71,7 +70,6 @@ class LoginActivity : ComponentActivity() {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     LoginScreen(
-                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -80,9 +78,8 @@ class LoginActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(name: String, modifier: Modifier = Modifier) {
+fun LoginScreen(modifier: Modifier = Modifier) {
     val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
     val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
     var mail by remember { mutableStateOf("") }
@@ -255,5 +252,5 @@ fun LoginScreen(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun LoginScreenPreview() {
-    LETSSOPTTheme { LoginScreen(name = "Android") }
+    LETSSOPTTheme { LoginScreen() }
 }
