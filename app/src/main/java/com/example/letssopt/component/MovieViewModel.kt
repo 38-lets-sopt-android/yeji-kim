@@ -16,4 +16,10 @@ class MovieViewModel : ViewModel() {
     val movies2 = listOf<Movie>(
         Movie("왕과 사는 남자", R.drawable.king),
         Movie("파묘", R.drawable.grave))
+
+    val movies3 = listOf<Movie>(
+        Movie("크라임씬", R.drawable.crime),
+        Movie("프로젝트 헤일메리", R.drawable.hailmary),
+        Movie("왕과 사는 남자", R.drawable.king)
+    )
 }
