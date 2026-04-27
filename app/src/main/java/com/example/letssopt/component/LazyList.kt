@@ -28,6 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,14 +41,34 @@ data class Movie(
 )
 
 @Composable
+fun RowItem(width: Dp, height: Dp, movies: List<Movie>, modifier: Modifier = Modifier) {
+    LazyRow(modifier = modifier,
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(movies) { movie ->
+            Image(
+                painter = painterResource(id = movie.imageRes),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(width, height)
+                    .background(Color.DarkGray)
+                    .clip(RoundedCornerShape(10.dp)),
+                contentScale = ContentScale.Crop
+            )
+        }
+    }
+}
+
+@Composable
 fun LazyList(modifier: Modifier = Modifier) {
     val viewModel: MovieViewModel = viewModel()
     val pretendardSemiBold = FontFamily(Font(R.font.pretendard_semibold))
 
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(color = Color(141414))
     ) {
         item {
             Column {
@@ -103,35 +124,20 @@ fun LazyList(modifier: Modifier = Modifier) {
                         Text(
                             "왓고리즘", color = Color.White, fontFamily = pretendardSemiBold,
                             modifier = Modifier
-                                .padding(top = 5.dp)
+                                .padding(top = 5.dp, start = 16.dp)
                                 .size(width = 80.dp, height = 26.dp)
                         )
                         Text(
                             "예능부터 드라마까지!", color = Color.Gray, fontFamily = pretendardSemiBold,
                             modifier = Modifier
-                                .padding(bottom = 3.dp)
+                                .padding(bottom = 3.dp, start = 16.dp)
                                 .size(width = 170.dp, height = 25.dp)
 
                         )
                     }
                     MoreText()
                 }
-                LazyRow(
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    items(viewModel.movies) { movie ->
-                        Image(
-                            painter = painterResource(id = movie.imageRes),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(100.dp, 150.dp)
-                                .background(Color.DarkGray)
-                                .clip(RoundedCornerShape(10.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-                }
+                RowItem(width = 100.dp, height = 150.dp, movies = viewModel.movies)
             }
         }
         item {
@@ -145,29 +151,14 @@ fun LazyList(modifier: Modifier = Modifier) {
                     Text(
                         "공개 예정 콘텐츠 ", color = Color.White, fontFamily = pretendardSemiBold,
                         modifier = Modifier
-                            .padding(top = 5.dp)
+                            .padding(top = 5.dp, start = 16.dp)
                             .size(width = 131.dp, height = 24.dp)
                     )
                     Box(modifier = Modifier.fillMaxWidth()) {
                         MoreText(modifier = Modifier.align(Alignment.CenterEnd))
                     }
                 }
-                LazyRow(
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    items(viewModel.movies) { movie ->
-                        Image(
-                            painter = painterResource(id = movie.imageRes),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(100.dp, 150.dp)
-                                .background(Color.DarkGray)
-                                .clip(RoundedCornerShape(10.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-                }
+                RowItem(width = 100.dp, height = 150.dp, movies = viewModel.movies)
             }
         }
         item {
@@ -181,26 +172,14 @@ fun LazyList(modifier: Modifier = Modifier) {
                     Text(
                         "왓챠 파티", color = Color.White, fontFamily = pretendardSemiBold,
                         modifier = Modifier
-                            .padding(top = 5.dp)
+                            .padding(top = 5.dp, start = 16.dp)
                             .size(width = 74.dp, height = 24.dp)
                     )
                     Box(modifier = Modifier.fillMaxWidth()) {
                         MoreText(modifier = Modifier.align(Alignment.CenterEnd))
                     }
                 }
-                LazyRow {
-                    items(viewModel.movies2) { movie ->
-                        Image(
-                            painter = painterResource(id = movie.imageRes),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .size(width = 196.dp, height = 185.dp)
-                                .clip(RoundedCornerShape(10.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-                }
+                RowItem(width = 196.dp, height = 185.dp, movies = viewModel.movies2)
             }
         }
     }
