@@ -1,4 +1,4 @@
-package com.example.letssopt.component
+package com.example.letssopt.presentation.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,7 +31,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
@@ -39,7 +38,7 @@ import com.example.letssopt.data.Content
 import com.example.letssopt.ui.theme.MoreText
 
 @Composable
-fun RowItem(width: Dp, height: Dp, contents: List<Content>, modifier: Modifier = Modifier) {
+fun RowItem(contents: List<Content>, modifier: Modifier = Modifier) {
     LazyRow(
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = 16.dp),
@@ -133,7 +132,7 @@ fun LazyList(
                     }
                     MoreText()
                 }
-                RowItem(width = 100.dp, height = 150.dp, contents = contentsMiddleSection)
+                RowItem(contents = contentsMiddleSection)
             }
         }
         item {
@@ -153,7 +152,7 @@ fun LazyList(
                     )
                     MoreText()
                 }
-                RowItem(width = 100.dp, height = 150.dp, contents = contentsMiddleSection)
+                RowItem(contents = contentsMiddleSection)
             }
         }
         item {

@@ -1,4 +1,4 @@
-package com.example.letssopt.presentation
+package com.example.letssopt.presentation.storage
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,20 +20,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
-class WebtoonActivity : ComponentActivity() {
+class StorageActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             LETSSOPTTheme {
-                WebtoonScreen()
+                StorageScreen()
             }
         }
     }
 }
 
 @Composable
-fun WebtoonScreen(modifier: Modifier = Modifier) {
+fun StorageScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -43,7 +42,7 @@ fun WebtoonScreen(modifier: Modifier = Modifier) {
     ) {
         Spacer(modifier = Modifier.height(100.dp))
         Text(
-            text = "웹툰 화면",
+            text = "보관함 화면",
             fontSize = 24.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold
@@ -53,8 +52,8 @@ fun WebtoonScreen(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-private fun WebtoonScreenPreview() {
+private fun StorageScreenPreview() {
     LETSSOPTTheme {
-        WebtoonScreen()
+        StorageScreen()
     }
 }

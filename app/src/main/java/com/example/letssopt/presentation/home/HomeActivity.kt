@@ -1,4 +1,4 @@
-package com.example.letssopt.presentation
+package com.example.letssopt.presentation.home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -17,9 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.component.BottomNavigation
-import com.example.letssopt.component.ContentViewModel
-import com.example.letssopt.component.LazyList
 import com.example.letssopt.component.TopNavigation
+import com.example.letssopt.presentation.purchase.PurchaseScreen
+import com.example.letssopt.presentation.search.SearchScreen
+import com.example.letssopt.presentation.storage.StorageScreen
+import com.example.letssopt.presentation.webtoon.WebtoonScreen
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,15 +30,15 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LETSSOPTTheme {
-                MainScreen()
+                HomeScreen()
             }
         }
     }
 }
 
 @Composable
-fun MainScreen() {
-    val viewModel: ContentViewModel = viewModel()
+fun HomeScreen() {
+    val viewModel: HomeViewModel = viewModel()
     var selectedTab by remember { mutableIntStateOf(0) }
 
     Scaffold(
@@ -81,8 +83,8 @@ fun MainScreen() {
 
 @Preview(showBackground = true)
 @Composable
-private fun MainScreenPreview() {
+private fun HomeScreenPreview() {
     LETSSOPTTheme {
-        MainScreen()
+        HomeScreen()
     }
 }

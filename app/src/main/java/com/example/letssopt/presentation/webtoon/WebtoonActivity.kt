@@ -1,4 +1,4 @@
-package com.example.letssopt.presentation
+package com.example.letssopt.presentation.webtoon
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,20 +20,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
-class StorageActivity : ComponentActivity() {
+class WebtoonActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             LETSSOPTTheme {
-                StorageScreen()
+                WebtoonScreen()
             }
         }
     }
 }
 
 @Composable
-fun StorageScreen(modifier: Modifier = Modifier) {
+fun WebtoonScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -42,7 +42,7 @@ fun StorageScreen(modifier: Modifier = Modifier) {
     ) {
         Spacer(modifier = Modifier.height(100.dp))
         Text(
-            text = "보관함 화면",
+            text = "웹툰 화면",
             fontSize = 24.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold
@@ -52,8 +52,8 @@ fun StorageScreen(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-private fun StorageScreenPreview() {
+private fun WebtoonScreenPreview() {
     LETSSOPTTheme {
-        StorageScreen()
+        WebtoonScreen()
     }
 }
