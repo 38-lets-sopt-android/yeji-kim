@@ -16,7 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.letssopt.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,18 +37,18 @@ fun TopNavigation() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = null,
+                    painter = painterResource(id = R.drawable.ic_topbar_camera),
+                    contentDescription = "카메라",
                     modifier = Modifier.size(24.dp)
                 )
                 Icon(
-                    imageVector = Icons.Default.Notifications,
-                    contentDescription = null,
+                    painter = painterResource(id = R.drawable.ic_topbar_noti),
+                    contentDescription = "알림",
                     modifier = Modifier.size(24.dp)
                 )
                 Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = null,
+                    painter = painterResource(id = R.drawable.ic_topbar_user),
+                    contentDescription = "사용자",
                     modifier = Modifier.size(24.dp)
                 )
             }
