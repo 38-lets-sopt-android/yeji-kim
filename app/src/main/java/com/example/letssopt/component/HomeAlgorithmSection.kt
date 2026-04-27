@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -117,11 +118,10 @@ fun LazyList(
                     verticalAlignment = Alignment.Bottom
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            "왓고리즘",
-                            color = Color.White,
-                            fontFamily = pretendardSemiBold,
-                            fontSize = 18.sp
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_watcha_algorithm),
+                            contentDescription = "왓고리즘",
+                            tint = Color.White
                         )
                         Text(
                             "예능부터 드라마까지!",
@@ -211,6 +211,11 @@ fun LazyList(
                                     .fillMaxWidth()
                                     .height(130.dp),
                                 contentScale = ContentScale.Crop
+                            )
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_notification),
+                                contentDescription = "알림",
+                                tint = Color.White
                             )
                             Column(modifier = Modifier.padding(10.dp)) {
                                 Text(
