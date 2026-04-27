@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -25,20 +26,21 @@ import com.example.letssopt.presentation.webtoon.WebtoonScreen
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 class MainActivity : ComponentActivity() {
+    private val viewModel: HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             LETSSOPTTheme {
-                HomeScreen()
+                HomeScreen(viewModel = viewModel)
             }
         }
     }
 }
 
+
 @Composable
-fun HomeScreen() {
-    val viewModel: HomeViewModel = viewModel()
+fun HomeScreen(viewModel: HomeViewModel) {
     var selectedTab by remember { mutableIntStateOf(0) }
 
     Scaffold(
@@ -54,11 +56,13 @@ fun HomeScreen() {
             TopNavigation()
         }
     ) { innerPadding ->
+        val homeData = viewModel.getHomeDataSet()
+
         when (selectedTab) {
             0 -> LazyList(
-                contentsMiddleSection = viewModel.contentsMiddleSection,
-                contentsBottomSection = viewModel.contentsBottomSection,
-                contentsTopSection = viewModel.contentsTopSection,
+                contentsMiddleSection = homeData.middleSection,
+                contentsBottomSection = homeData.bottomSection,
+                contentsTopSection = homeData.topSection,
                 modifier = Modifier.padding(innerPadding)
             )
 
@@ -71,9 +75,9 @@ fun HomeScreen() {
             4 -> StorageScreen()
 
             else -> LazyList(
-                contentsMiddleSection = viewModel.contentsMiddleSection,
-                contentsBottomSection = viewModel.contentsBottomSection,
-                contentsTopSection = viewModel.contentsTopSection,
+                contentsMiddleSection = homeData.middleSection,
+                contentsBottomSection = homeData.bottomSection,
+                contentsTopSection = homeData.topSection,
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -85,6 +89,6 @@ fun HomeScreen() {
 @Composable
 private fun HomeScreenPreview() {
     LETSSOPTTheme {
-        HomeScreen()
+        HomeScreen(viewModel = viewModel())
     }
 }
