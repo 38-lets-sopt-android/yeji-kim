@@ -3,6 +3,7 @@ package com.example.letssopt.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -171,26 +173,6 @@ fun LazyList(
                     )
                     MoreText()
                 }
-                RowItem(width = 196.dp, height = 185.dp, contents = contentsBottomSection)
-            }
-        }
-        item {
-            Column(modifier = Modifier.padding(top = 20.dp, bottom = 40.dp)) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 10.dp),
-                    verticalAlignment = Alignment.Bottom
-                ) {
-                    Text(
-                        "왓챠 파티",
-                        color = Color.White,
-                        fontFamily = pretendardSemiBold,
-                        fontSize = 18.sp,
-                        modifier = Modifier.weight(1f)
-                    )
-                    MoreText()
-                }
 
                 LazyRow(
                     contentPadding = PaddingValues(horizontal = 16.dp),
@@ -203,19 +185,29 @@ fun LazyList(
                                 .clip(RoundedCornerShape(8.dp))
                                 .background(Color(0xFF1A1A1A))
                         ) {
-                            Image(
-                                painter = painterResource(id = content.imageRes),
-                                contentDescription = null,
+                            Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(130.dp),
-                                contentScale = ContentScale.Crop
-                            )
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_notification),
-                                contentDescription = "알림",
-                                tint = Color.White
-                            )
+                                    .height(130.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = content.imageRes),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(139.dp),
+                                    contentScale = ContentScale.Crop
+                                )
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_notification),
+                                    contentDescription = "알림",
+                                    tint = Color.Unspecified,
+                                    modifier = Modifier
+                                        .align(Alignment.TopEnd)
+                                        .padding(8.dp)
+                                        .size(28.dp)
+                                )
+                            }
                             Column(modifier = Modifier.padding(10.dp)) {
                                 Text(
                                     "오늘 21:13에 시작",
