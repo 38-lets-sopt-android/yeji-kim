@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -49,8 +48,8 @@ fun RowItem(width: Dp, height: Dp, contents: List<Content>, modifier: Modifier =
                 painter = painterResource(id = content.imageRes),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(width, height)
-                    .background(Color.DarkGray)
+                    .fillParentMaxWidth(0.3f)
+                    .aspectRatio(2f / 3f)
                     .clip(RoundedCornerShape(10.dp)),
                 contentScale = ContentScale.Crop
             )
