@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 fun TopNavigation() {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Black,
+            containerColor = Color(0xFF141414),
             actionIconContentColor = Color.White
         ),
         title = { },
