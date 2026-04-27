@@ -54,9 +54,9 @@ fun MainScreen() {
     ) { innerPadding ->
         when (selectedTab) {
             0 -> LazyList(
-                contents1 = viewModel.contents1,
-                contents2 = viewModel.contents2,
-                contents3 = viewModel.contents3,
+                contentsMiddleSection = viewModel.contentsMiddleSection,
+                contentsBottomSection = viewModel.contentsBottomSection,
+                contentsTopSection = viewModel.contentsTopSection,
                 modifier = Modifier.padding(innerPadding)
             )
 
@@ -69,9 +69,9 @@ fun MainScreen() {
             4 -> StorageScreen()
 
             else -> LazyList(
-                contents1 = viewModel.contents1,
-                contents2 = viewModel.contents2,
-                contents3 = viewModel.contents3,
+                contentsMiddleSection = viewModel.contentsMiddleSection,
+                contentsBottomSection = viewModel.contentsBottomSection,
+                contentsTopSection = viewModel.contentsTopSection,
                 modifier = Modifier.padding(innerPadding)
             )
         }

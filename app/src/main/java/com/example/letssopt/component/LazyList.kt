@@ -59,9 +59,9 @@ fun RowItem(width: Dp, height: Dp, contents: List<Content>, modifier: Modifier =
 
 @Composable
 fun LazyList(
-    contents1: List<Content>,
-    contents2: List<Content>,
-    contents3: List<Content>,
+    contentsMiddleSection: List<Content>,
+    contentsBottomSection: List<Content>,
+    contentsTopSection: List<Content>,
     modifier: Modifier = Modifier
 ) {
     val pretendardSemiBold = FontFamily(Font(R.font.pretendard_semibold))
@@ -91,7 +91,7 @@ fun LazyList(
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(contents3.take(3)) { content ->
+                    items(contentsTopSection.take(3)) { content ->
                         Row(modifier = Modifier.fillParentMaxWidth(0.9f)) {
                             Image(
                                 painter = painterResource(id = content.imageRes),
@@ -132,7 +132,7 @@ fun LazyList(
                     }
                     MoreText()
                 }
-                RowItem(width = 100.dp, height = 150.dp, contents = contents1)
+                RowItem(width = 100.dp, height = 150.dp, contents = contentsMiddleSection)
             }
         }
         item {
@@ -152,7 +152,7 @@ fun LazyList(
                     )
                     MoreText()
                 }
-                RowItem(width = 100.dp, height = 150.dp, contents = contents1)
+                RowItem(width = 100.dp, height = 150.dp, contents = contentsMiddleSection)
             }
         }
         item {
@@ -172,7 +172,7 @@ fun LazyList(
                     )
                     MoreText()
                 }
-                RowItem(width = 196.dp, height = 185.dp, contents = contents2)
+                RowItem(width = 196.dp, height = 185.dp, contents = contentsBottomSection)
             }
         }
         item {
@@ -197,7 +197,7 @@ fun LazyList(
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(contents2) { content ->
+                    items(contentsBottomSection) { content ->
                         Column(
                             modifier = Modifier
                                 .width(220.dp)
