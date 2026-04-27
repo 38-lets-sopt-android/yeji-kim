@@ -33,22 +33,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.R
+import com.example.letssopt.data.Content
 import com.example.letssopt.ui.theme.MoreText
 
-data class Movie(
-    val title: String,
-    val imageRes: Int
-)
-
 @Composable
-fun RowItem(width: Dp, height: Dp, movies: List<Movie>, modifier: Modifier = Modifier) {
+fun RowItem(width: Dp, height: Dp, contents: List<Content>, modifier: Modifier = Modifier) {
     LazyRow(modifier = modifier,
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(movies) { movie ->
+        items(contents) { content ->
             Image(
-                painter = painterResource(id = movie.imageRes),
+                painter = painterResource(id = content.imageRes),
                 contentDescription = null,
                 modifier = Modifier
                     .size(width, height)
@@ -62,7 +58,7 @@ fun RowItem(width: Dp, height: Dp, movies: List<Movie>, modifier: Modifier = Mod
 
 @Composable
 fun LazyList(modifier: Modifier = Modifier) {
-    val viewModel: MovieViewModel = viewModel()
+    val viewModel: ContentViewModel = viewModel()
     val pretendardSemiBold = FontFamily(Font(R.font.pretendard_semibold))
 
     LazyColumn(
@@ -95,10 +91,10 @@ fun LazyList(modifier: Modifier = Modifier) {
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(viewModel.movies3.take(3)) { movie ->
+                    items(viewModel.contents3.take(3)) { content ->
                         Row(modifier = Modifier.fillParentMaxWidth(0.9f)) {
                             Image(
-                                painter = painterResource(id = movie.imageRes),
+                                painter = painterResource(id = content.imageRes),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .fillMaxSize()
@@ -137,7 +133,7 @@ fun LazyList(modifier: Modifier = Modifier) {
                     }
                     MoreText()
                 }
-                RowItem(width = 100.dp, height = 150.dp, movies = viewModel.movies)
+                RowItem(width = 100.dp, height = 150.dp, contents = viewModel.contents)
             }
         }
         item {
@@ -158,7 +154,7 @@ fun LazyList(modifier: Modifier = Modifier) {
                         MoreText(modifier = Modifier.align(Alignment.CenterEnd))
                     }
                 }
-                RowItem(width = 100.dp, height = 150.dp, movies = viewModel.movies)
+                RowItem(width = 100.dp, height = 150.dp, contents = viewModel.contents)
             }
         }
         item {
@@ -179,7 +175,7 @@ fun LazyList(modifier: Modifier = Modifier) {
                         MoreText(modifier = Modifier.align(Alignment.CenterEnd))
                     }
                 }
-                RowItem(width = 196.dp, height = 185.dp, movies = viewModel.movies2)
+                RowItem(width = 196.dp, height = 185.dp, contents = viewModel.contents2)
             }
         }
     }
