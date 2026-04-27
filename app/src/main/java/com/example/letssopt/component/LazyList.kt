@@ -3,7 +3,6 @@ package com.example.letssopt.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -14,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -28,17 +28,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.R
 import com.example.letssopt.data.Content
 import com.example.letssopt.ui.theme.MoreText
 
 @Composable
 fun RowItem(width: Dp, height: Dp, contents: List<Content>, modifier: Modifier = Modifier) {
-    LazyRow(modifier = modifier,
+    LazyRow(
+        modifier = modifier,
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -57,8 +58,12 @@ fun RowItem(width: Dp, height: Dp, contents: List<Content>, modifier: Modifier =
 }
 
 @Composable
-fun LazyList(modifier: Modifier = Modifier) {
-    val viewModel: ContentViewModel = viewModel()
+fun LazyList(
+    contents1: List<Content>,
+    contents2: List<Content>,
+    contents3: List<Content>,
+    modifier: Modifier = Modifier
+) {
     val pretendardSemiBold = FontFamily(Font(R.font.pretendard_semibold))
 
     LazyColumn(
@@ -67,31 +72,26 @@ fun LazyList(modifier: Modifier = Modifier) {
             .background(color = Color(141414))
     ) {
         item {
-            Column {
-                Column(modifier = Modifier.fillMaxSize()) {
+            Column(modifier = Modifier) {
+                Column(modifier = Modifier.padding(start = 19.dp, top = 24.dp, bottom = 14.dp)) {
                     Text(
                         "방금 막 도착한 신상 컨텐츠",
                         color = Color.White,
                         fontFamily = pretendardSemiBold,
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(start = 19.dp, top = 24.dp),
+                        fontSize = 20.sp
                     )
-                    Spacer(modifier = Modifier.height(4.dp))
-
                     Text(
                         "예능부터 드라마까지!",
                         color = Color.Gray,
                         fontFamily = pretendardSemiBold,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(start = 19.dp)
+                        fontSize = 16.sp
                     )
-                    Spacer(modifier = Modifier.height(14.dp))
                 }
                 LazyRow(
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(viewModel.contents3.take(3)) { content ->
+                    items(contents3.take(3)) { content ->
                         Row(modifier = Modifier.fillParentMaxWidth(0.9f)) {
                             Image(
                                 painter = painterResource(id = content.imageRes),
@@ -109,7 +109,7 @@ fun LazyList(modifier: Modifier = Modifier) {
             }
         }
         item {
-            Column {
+            Column(modifier = Modifier.padding(top = 10.dp)) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -118,26 +118,25 @@ fun LazyList(modifier: Modifier = Modifier) {
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            "왓고리즘", color = Color.White, fontFamily = pretendardSemiBold,
-                            modifier = Modifier
-                                .padding(top = 5.dp, start = 16.dp)
-                                .size(width = 80.dp, height = 26.dp)
+                            "왓고리즘",
+                            color = Color.White,
+                            fontFamily = pretendardSemiBold,
+                            fontSize = 18.sp
                         )
                         Text(
-                            "예능부터 드라마까지!", color = Color.Gray, fontFamily = pretendardSemiBold,
-                            modifier = Modifier
-                                .padding(bottom = 3.dp, start = 16.dp)
-                                .size(width = 170.dp, height = 25.dp)
-
+                            "예능부터 드라마까지!",
+                            color = Color.Gray,
+                            fontFamily = pretendardSemiBold,
+                            fontSize = 12.sp
                         )
                     }
                     MoreText()
                 }
-                RowItem(width = 100.dp, height = 150.dp, contents = viewModel.contents)
+                RowItem(width = 100.dp, height = 150.dp, contents = contents1)
             }
         }
         item {
-            Column {
+            Column(modifier = Modifier.padding(top = 20.dp)) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -145,20 +144,19 @@ fun LazyList(modifier: Modifier = Modifier) {
                     verticalAlignment = Alignment.Bottom
                 ) {
                     Text(
-                        "공개 예정 콘텐츠 ", color = Color.White, fontFamily = pretendardSemiBold,
-                        modifier = Modifier
-                            .padding(top = 5.dp, start = 16.dp)
-                            .size(width = 131.dp, height = 24.dp)
+                        "공개 예정 콘텐츠 ",
+                        color = Color.White,
+                        fontFamily = pretendardSemiBold,
+                        fontSize = 18.sp,
+                        modifier = Modifier.weight(1f)
                     )
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        MoreText(modifier = Modifier.align(Alignment.CenterEnd))
-                    }
+                    MoreText()
                 }
-                RowItem(width = 100.dp, height = 150.dp, contents = viewModel.contents)
+                RowItem(width = 100.dp, height = 150.dp, contents = contents1)
             }
         }
         item {
-            Column {
+            Column(modifier = Modifier.padding(top = 20.dp, bottom = 40.dp)) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -166,16 +164,67 @@ fun LazyList(modifier: Modifier = Modifier) {
                     verticalAlignment = Alignment.Bottom
                 ) {
                     Text(
-                        "왓챠 파티", color = Color.White, fontFamily = pretendardSemiBold,
-                        modifier = Modifier
-                            .padding(top = 5.dp, start = 16.dp)
-                            .size(width = 74.dp, height = 24.dp)
+                        "왓챠 파티",
+                        color = Color.White,
+                        fontFamily = pretendardSemiBold,
+                        fontSize = 18.sp,
+                        modifier = Modifier.weight(1f)
                     )
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        MoreText(modifier = Modifier.align(Alignment.CenterEnd))
+                    MoreText()
+                }
+                RowItem(width = 196.dp, height = 185.dp, contents = contents2)
+            }
+        }
+        item {
+            Column(modifier = Modifier.padding(top = 20.dp, bottom = 40.dp)) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    Text(
+                        "왓챠 파티",
+                        color = Color.White,
+                        fontFamily = pretendardSemiBold,
+                        fontSize = 18.sp,
+                        modifier = Modifier.weight(1f)
+                    )
+                    MoreText()
+                }
+
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    items(contents2) { content ->
+                        Column(
+                            modifier = Modifier
+                                .width(220.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color(0xFF1A1A1A))
+                        ) {
+                            Image(
+                                painter = painterResource(id = content.imageRes),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(130.dp),
+                                contentScale = ContentScale.Crop
+                            )
+                            Column(modifier = Modifier.padding(10.dp)) {
+                                Text(
+                                    "오늘 21:13에 시작",
+                                    color = Color(0xFFFF2F55),
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text("# ${content.title}", color = Color.White, fontSize = 14.sp)
+                            }
+                        }
                     }
                 }
-                RowItem(width = 196.dp, height = 185.dp, contents = viewModel.contents2)
             }
         }
     }

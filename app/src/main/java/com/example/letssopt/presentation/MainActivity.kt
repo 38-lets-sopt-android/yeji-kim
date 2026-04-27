@@ -15,7 +15,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.component.BottomNavigation
+import com.example.letssopt.component.ContentViewModel
 import com.example.letssopt.component.LazyList
 import com.example.letssopt.component.TopNavigation
 import com.example.letssopt.ui.theme.LETSSOPTTheme
@@ -33,7 +35,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen() {
+    val viewModel: ContentViewModel = viewModel()
     var selectedTab by remember { mutableIntStateOf(0) }
 
     Scaffold(
@@ -50,7 +53,12 @@ fun MainScreen(modifier: Modifier = Modifier) {
         }
     ) { innerPadding ->
         when (selectedTab) {
-            0 -> LazyList(modifier = Modifier.padding(innerPadding))
+            0 -> LazyList(
+                contents1 = viewModel.contents1,
+                contents2 = viewModel.contents2,
+                contents3 = viewModel.contents3,
+                modifier = Modifier.padding(innerPadding)
+            )
 
             1 -> PurchaseScreen()
 
@@ -60,7 +68,12 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
             4 -> StorageScreen()
 
-            else -> LazyList(modifier = Modifier.padding(innerPadding))
+            else -> LazyList(
+                contents1 = viewModel.contents1,
+                contents2 = viewModel.contents2,
+                contents3 = viewModel.contents3,
+                modifier = Modifier.padding(innerPadding)
+            )
         }
     }
 }

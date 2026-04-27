@@ -5,7 +5,7 @@ import com.example.letssopt.R
 import com.example.letssopt.data.Content
 
 class ContentViewModel : ViewModel() {
-    val contents = listOf<Content>(
+    val contents1 = listOf<Content>(
         Content("이 사랑 통역 되나요?", R.drawable.img_translation),
         Content("프로젝트 헤일메리", R.drawable.img_hailmary),
         Content("기묘한 이야기", R.drawable.img_starnger_things),
