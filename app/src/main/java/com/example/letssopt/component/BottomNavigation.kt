@@ -12,39 +12,51 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 
+sealed class BottomNavItem(
+    val route: String,
+    val title: String,
+    val icon: ImageVector
+) {
+    object Main : BottomNavItem("main", "메인", Icons.Default.Home)
+    object Purchase : BottomNavItem("buy", "개별구매", Icons.Default.ShoppingCart)
+    object Webtoon : BottomNavItem("webtoon", "웹툰", Icons.Default.Star)
+    object Search : BottomNavItem("search", "찾기", Icons.Default.Search)
+    object My : BottomNavItem("my", "보관함", Icons.Default.Person)
+}
 
 @Composable
 fun BottomNavigation(
     selectedTabIndex: Int,
     onTabSelected: (Int) -> Unit,
-    modifier: Modifier = Modifier
 ) {
-    NavigationBar(containerColor = Color.Black) {
-        val items = listOf("메인", "개별구매", "웹툰", "찾기", "보관함")
-        val icons = listOf(
-            Icons.Default.Home,
-            Icons.Default.ShoppingCart,
-            Icons.Default.Star,
-            Icons.Default.Search,
-            Icons.Default.Person
-        )
+    val navItems = listOf(
+        BottomNavItem.Main,
+        BottomNavItem.Purchase,
+        BottomNavItem.Webtoon,
+        BottomNavItem.Search,
+        BottomNavItem.My
+    )
 
-        items.forEachIndexed { index, title ->
+    NavigationBar(containerColor = Color(0xFF141414)) {
+        navItems.forEachIndexed { index, item ->
             NavigationBarItem(
                 selected = selectedTabIndex == index,
                 onClick = { onTabSelected(index) },
                 icon = {
                     Icon(
-                        imageVector = icons[index],
-                        contentDescription = title,
+                        imageVector = item.icon,
+                        contentDescription = item.title,
                         tint = Color(0xFF333333)
                     )
                 },
                 label = {
-                    Text(title, color = if (selectedTabIndex == index) Color.White else Color.Gray)
+                    Text(
+                        text = item.title,
+                        color = if (selectedTabIndex == index) Color.White else Color.Gray
+                    )
                 },
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = Color.Transparent
