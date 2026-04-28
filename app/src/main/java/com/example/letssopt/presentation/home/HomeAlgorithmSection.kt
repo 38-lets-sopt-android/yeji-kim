@@ -38,7 +38,7 @@ import com.example.letssopt.data.Content
 import com.example.letssopt.ui.theme.MoreText
 
 @Composable
-fun RowItem(contents: List<Content>, modifier: Modifier = Modifier) {
+fun RowMiddleSectionItem(contents: List<Content>, modifier: Modifier = Modifier) {
     LazyRow(
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = 16.dp),
@@ -132,7 +132,7 @@ fun LazyList(
                     }
                     MoreText()
                 }
-                RowItem(contents = contentsMiddleSection)
+                RowMiddleSectionItem(contents = contentsMiddleSection)
             }
         }
         item {
@@ -152,7 +152,7 @@ fun LazyList(
                     )
                     MoreText()
                 }
-                RowItem(contents = contentsMiddleSection)
+                RowMiddleSectionItem(contents = contentsMiddleSection)
             }
         }
         item {
