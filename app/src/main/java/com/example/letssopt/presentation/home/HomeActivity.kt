@@ -18,14 +18,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.component.BottomNavigation
-import com.example.letssopt.component.TopNavigation
+import com.example.letssopt.component.TopAppBar
 import com.example.letssopt.presentation.purchase.PurchaseScreen
 import com.example.letssopt.presentation.search.SearchScreen
 import com.example.letssopt.presentation.storage.StorageScreen
 import com.example.letssopt.presentation.webtoon.WebtoonScreen
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
-class MainActivity : ComponentActivity() {
+class HomeActivity : ComponentActivity() {
     private val viewModel: HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +53,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
             )
         },
         topBar = {
-            TopNavigation()
+            TopAppBar()
         }
     ) { innerPadding ->
         val homeData = viewModel.getHomeDataSet()
