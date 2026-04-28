@@ -1,4 +1,4 @@
-package com.example.letssopt.ui.theme
+package com.example.letssopt.presentation.user
 
 import android.app.Activity
 import android.content.Intent
@@ -35,12 +35,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.letssopt.R
+import com.example.letssopt.ui.theme.LETSSOPTTheme
 import android.graphics.Color as AndroidColor
 
 class SignUpActivity : ComponentActivity() {
@@ -79,6 +83,8 @@ private fun validateSignUp(mail: String, password: String, passwordConfirm: Stri
 
 @Composable
 fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
+    val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
+    val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
     var mail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordConfirm by remember { mutableStateOf("") }
@@ -95,6 +101,7 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
             fontSize = 36.sp,
             color = Color(0xFFE8003C),
             fontWeight = FontWeight.Bold,
+            fontFamily = pretendardBold,
             modifier = Modifier
                 .padding(top = 60.dp)
                 .align(Alignment.CenterHorizontally)
@@ -104,10 +111,11 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
             text = "회원가입",
             fontSize = 20.sp,
             color = Color(0xFFFFFFFF),
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            fontFamily = pretendardBold,
         )
         Spacer(modifier = Modifier.height(36.dp))
-        Text(text = "이메일", color = Color(0xFF999999), fontWeight = FontWeight.W400)
+        Text(text = "이메일", color = Color(0xFF999999), fontFamily = pretendardRegular)
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
             value = mail,
@@ -123,14 +131,14 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (mail.isEmpty()) {
-                        Text("이메일 주소를 입력하세요", color = Color(0xFF666666))
+                        Text("이메일 주소를 입력하세요", color = Color(0xFF666666), fontFamily = pretendardRegular)
                     }
                     innerTextField()
                 }
             }
         )
         Spacer(modifier = Modifier.height(18.dp))
-        Text(text = "비밀번호", color = Color(0xFF999999), fontWeight = FontWeight.W400)
+        Text(text = "비밀번호", color = Color(0xFF999999), fontFamily = pretendardRegular)
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
             value = password,
@@ -147,14 +155,14 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (password.isEmpty()) {
-                        Text("비밀번호를 입력하세요", color = Color(0xFF666666))
+                        Text("비밀번호를 입력하세요", color = Color(0xFF666666), fontFamily = pretendardRegular)
                     }
                     innerTextField()
                 }
             }
         )
         Spacer(modifier = Modifier.height(18.dp))
-        Text(text = "비밀번호 확인", color = Color(0xFF999999), fontWeight = FontWeight.W400)
+        Text(text = "비밀번호 확인", color = Color(0xFF999999), fontFamily = pretendardRegular)
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
             value = passwordConfirm,
@@ -171,7 +179,7 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (passwordConfirm.isEmpty()) {
-                        Text("비밀번호를 다시 입력하세요", color = Color(0xFF666666))
+                        Text("비밀번호를 다시 입력하세요", color = Color(0xFF666666), fontFamily = pretendardRegular)
                     }
                     innerTextField()
                 }
@@ -221,7 +229,7 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
             ),
             shape = RoundedCornerShape(8.dp)
         ) {
-            Text("회원가입", fontWeight = FontWeight.Bold)
+            Text("회원가입", fontFamily = pretendardBold)
         }
     }
 }
