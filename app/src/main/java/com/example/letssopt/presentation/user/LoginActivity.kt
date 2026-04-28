@@ -50,6 +50,7 @@ import com.example.letssopt.R
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import android.graphics.Color as AndroidColor
 
+
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
