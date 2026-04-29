@@ -14,17 +14,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.letssopt.navigation.Route
 
 sealed class BottomNavItem(
-    val route: String,
+    val route: Any,
     val title: String,
     val icon: ImageVector
 ) {
-    object Main : BottomNavItem("main", "메인", Icons.Default.Home)
-    object Purchase : BottomNavItem("buy", "개별구매", Icons.Default.ShoppingCart)
-    object Webtoon : BottomNavItem("webtoon", "웹툰", Icons.Default.Star)
-    object Search : BottomNavItem("search", "찾기", Icons.Default.Search)
-    object My : BottomNavItem("my", "보관함", Icons.Default.Person)
+    object Main : BottomNavItem(Route.Home, "메인", Icons.Default.Home)
+    object Purchase : BottomNavItem(Route.Purchase, "개별구매", Icons.Default.ShoppingCart)
+    object Webtoon : BottomNavItem(Route.Webtoon, "웹툰", Icons.Default.Star)
+    object Search : BottomNavItem(Route.Search, "찾기", Icons.Default.Search)
+    object Storage : BottomNavItem(Route.Storage, "보관함", Icons.Default.Person)
 }
 
 @Composable
@@ -37,7 +38,7 @@ fun BottomNavigation(
         BottomNavItem.Purchase,
         BottomNavItem.Webtoon,
         BottomNavItem.Search,
-        BottomNavItem.My
+        BottomNavItem.Storage
     )
 
     NavigationBar(containerColor = Color(0xFF141414)) {
