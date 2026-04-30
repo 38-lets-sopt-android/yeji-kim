@@ -45,8 +45,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.letssopt.MainActivity
 import com.example.letssopt.R
+import com.example.letssopt.presentation.home.HomeActivity
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import android.graphics.Color as AndroidColor
 
@@ -58,7 +58,7 @@ class LoginActivity : ComponentActivity() {
         val isAutoLogin = pref.getBoolean("autoLogin", false)
 
         if (isAutoLogin) {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
             return
@@ -225,7 +225,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                         }
 
                         Toast.makeText(context, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(context, MainActivity::class.java).apply {
+                        val intent = Intent(context, HomeActivity::class.java).apply {
                             putExtra("mail", mail)
                             putExtra("password", password)
                         }
