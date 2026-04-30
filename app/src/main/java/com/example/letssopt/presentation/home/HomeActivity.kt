@@ -64,13 +64,12 @@ class HomeActivity : ComponentActivity() {
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
-
-    val homeData = viewModel.getHomeDataSet()
+    val data = viewModel.homeDataSet
 
     LazyList(
-        contentsMiddleSection = homeData.middleSection,
-        contentsBottomSection = homeData.bottomSection,
-        contentsTopSection = homeData.topSection,
+        contentsMiddleSection = data.middleSection,
+        contentsBottomSection = data.bottomSection,
+        contentsTopSection = data.topSection,
         modifier = modifier
             .fillMaxSize()
             .background(Color.Black)
