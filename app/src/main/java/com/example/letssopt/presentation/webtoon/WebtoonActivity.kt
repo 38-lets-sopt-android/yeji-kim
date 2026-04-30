@@ -18,6 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.letssopt.presentation.storage.StorageViewModel
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 class WebtoonActivity : ComponentActivity() {
@@ -33,7 +35,12 @@ class WebtoonActivity : ComponentActivity() {
 }
 
 @Composable
-fun WebtoonScreen(modifier: Modifier = Modifier) {
+fun WebtoonScreen(
+    viewModel: WebtoonViewModel = viewModel(),
+    modifier: Modifier = Modifier
+) {
+    val title = viewModel.webtoonTitle
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -42,7 +49,7 @@ fun WebtoonScreen(modifier: Modifier = Modifier) {
     ) {
         Spacer(modifier = Modifier.height(100.dp))
         Text(
-            text = "웹툰 화면",
+            text = title,
             fontSize = 24.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold
