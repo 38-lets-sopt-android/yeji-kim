@@ -1,4 +1,4 @@
-package com.example.letssopt.component
+package com.example.letssopt.Navigation
 
 import kotlinx.serialization.Serializable
 
@@ -17,6 +17,12 @@ sealed interface Route {
 
     @Serializable
     data object Webtoon : Route
+
+    @Serializable
+    data object Login : Route
+
+    @Serializable
+    data object SignUp : Route
 
     @Serializable
     data class Detail(val id: Int) : Route

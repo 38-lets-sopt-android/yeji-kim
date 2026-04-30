@@ -1,21 +1,23 @@
-package com.example.letssopt.presentation.home
+package com.example.letssopt.Navigation
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.navigation.NavController
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.example.letssopt.component.Route
-
-fun NavController.navigateToHome(navOptions: NavOptions) = navigate(Route.Home, navOptions)
+import com.example.letssopt.presentation.home.HomeScreen
+import com.example.letssopt.presentation.home.HomeViewModel
 
 fun NavGraphBuilder.homeGraph(
-    navController: NavController,
     innerPadding: PaddingValues,
 ) {
     composable<Route.Home> {
-        HomeRoute(
-            paddingValues = innerPadding,
+        val viewModel: HomeViewModel = viewModel()
+
+        HomeScreen(
+            viewModel = viewModel,
+            modifier = Modifier.padding(innerPadding)
         )
     }
 }

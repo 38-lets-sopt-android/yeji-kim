@@ -82,7 +82,7 @@ private fun validateSignUp(mail: String, password: String, passwordConfirm: Stri
 }
 
 @Composable
-fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
+fun SignUpScreen(name: String = "", modifier: Modifier = Modifier) {
     val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
     val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
     var mail by remember { mutableStateOf("") }
