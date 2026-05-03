@@ -59,7 +59,6 @@ class SignUpActivity : ComponentActivity() {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     SignUpScreen(
-                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -68,21 +67,8 @@ class SignUpActivity : ComponentActivity() {
     }
 }
 
-private fun validateSignUp(mail: String, password: String, passwordConfirm: String): String? {
-    if (!EMAIL_ADDRESS.matcher(mail).matches()) {
-        return "이메일 형식이 올바르지 않습니다."
-    }
-    if (password.length !in 8..12) {
-        return "비밀번호는 8~12자 이내로 입력해주세요."
-    }
-    if (password != passwordConfirm) {
-        return "비밀번호가 일치하지 않습니다."
-    }
-    return null
-}
-
 @Composable
-fun SignUpScreen(name: String = "", modifier: Modifier = Modifier) {
+fun SignUpScreen(modifier: Modifier = Modifier) {
     val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
     val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
     var mail by remember { mutableStateOf("") }
@@ -238,6 +224,6 @@ fun SignUpScreen(name: String = "", modifier: Modifier = Modifier) {
 @Composable
 private fun SignUpPreview() {
     LETSSOPTTheme {
-        SignUpScreen("Android")
+        SignUpScreen()
     }
 }
