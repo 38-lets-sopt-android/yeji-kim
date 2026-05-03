@@ -23,7 +23,4 @@ sealed interface Route {
 
     @Serializable
     data object SignUp : Route
-
-    @Serializable
-    data class Detail(val id: Int) : Route
 }
