@@ -72,7 +72,7 @@ fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
         contentsTopSection = data.topSection,
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(Color(0xFF141414))
     )
 
 }
