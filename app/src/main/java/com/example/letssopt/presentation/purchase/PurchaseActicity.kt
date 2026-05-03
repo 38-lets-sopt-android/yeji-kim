@@ -48,7 +48,7 @@ fun PurchaseScreen(
     ) {
         Spacer(modifier = Modifier.height(100.dp))
         Text(
-            text = title, //
+            text = title,
             fontSize = 24.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold
