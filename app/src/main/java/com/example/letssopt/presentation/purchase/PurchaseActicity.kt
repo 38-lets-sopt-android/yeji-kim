@@ -35,8 +35,8 @@ class PurchaseActivity : ComponentActivity() {
 
 @Composable
 fun PurchaseScreen(
-    viewModel: PurchaseViewModel = viewModel(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: PurchaseViewModel = viewModel()
 ) {
     val title = viewModel.purchaseTitle
 

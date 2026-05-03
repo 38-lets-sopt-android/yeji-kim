@@ -19,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.letssopt.presentation.storage.StorageViewModel
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 class WebtoonActivity : ComponentActivity() {
@@ -36,8 +35,8 @@ class WebtoonActivity : ComponentActivity() {
 
 @Composable
 fun WebtoonScreen(
-    viewModel: WebtoonViewModel = viewModel(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: WebtoonViewModel = viewModel()
 ) {
     val title = viewModel.webtoonTitle
 

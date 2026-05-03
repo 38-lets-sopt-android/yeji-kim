@@ -36,8 +36,8 @@ class StorageActivity : ComponentActivity() {
 
 @Composable
 fun StorageScreen(
-    viewModel: StorageViewModel = viewModel(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: StorageViewModel = viewModel()
 ) {
     val title = viewModel.storageTitle
 
