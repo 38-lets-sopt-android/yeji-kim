@@ -1,6 +1,6 @@
-package com.example.letssopt.data.repository.impl
+package com.example.letssopt.core.data.repository.impl
 
-import com.example.letssopt.data.repository.WebtoonRepository
+import com.example.letssopt.core.data.repository.WebtoonRepository
 
 class WebtoonRepositoryImpl : WebtoonRepository {
     override fun getWebtoonTitle(): String {

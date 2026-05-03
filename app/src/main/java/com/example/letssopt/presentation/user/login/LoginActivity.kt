@@ -1,4 +1,4 @@
-package com.example.letssopt.presentation.user
+package com.example.letssopt.presentation.user.login
 
 import android.app.Activity
 import android.content.Intent
@@ -46,8 +46,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
+import com.example.letssopt.core.ui.theme.LETSSOPTTheme
 import com.example.letssopt.presentation.home.HomeActivity
-import com.example.letssopt.ui.theme.LETSSOPTTheme
+import com.example.letssopt.presentation.user.signup.SignUpActivity
 import android.graphics.Color as AndroidColor
 
 

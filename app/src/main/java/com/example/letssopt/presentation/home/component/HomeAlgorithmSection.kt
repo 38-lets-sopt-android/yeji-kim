@@ -1,4 +1,4 @@
-package com.example.letssopt.presentation.home
+package com.example.letssopt.presentation.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,8 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
-import com.example.letssopt.data.Content
-import com.example.letssopt.ui.theme.MoreText
+import com.example.letssopt.core.data.Content
+import com.example.letssopt.core.ui.theme.MoreText
 
 @Composable
 fun RowMiddleSectionItem(contents: List<Content>, modifier: Modifier = Modifier) {

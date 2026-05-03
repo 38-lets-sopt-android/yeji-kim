@@ -1,4 +1,4 @@
-package com.example.letssopt.data.repository
+package com.example.letssopt.core.data.repository
 
 interface PurchaseRepository {
     fun getPurchaseTitle(): String

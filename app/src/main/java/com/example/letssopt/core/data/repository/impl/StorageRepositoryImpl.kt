@@ -1,6 +1,6 @@
-package com.example.letssopt.data.repository.impl
+package com.example.letssopt.core.data.repository.impl
 
-import com.example.letssopt.data.repository.StorageRepository
+import com.example.letssopt.core.data.repository.StorageRepository
 
 class StorageRepositoryImpl : StorageRepository {
     override fun getStorageTitle(): String {

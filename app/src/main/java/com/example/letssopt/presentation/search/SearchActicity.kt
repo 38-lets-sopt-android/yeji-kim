@@ -18,8 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.letssopt.ui.theme.LETSSOPTTheme
+import com.example.letssopt.core.ui.theme.LETSSOPTTheme
 
 class SearchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +34,8 @@ class SearchActivity : ComponentActivity() {
 
 @Composable
 fun SearchScreen(
-    modifier: Modifier = Modifier,
-    viewModel: SearchViewModel = viewModel()
+    modifier: Modifier = Modifier
 ) {
-    val title = viewModel.searchTitle
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -48,7 +44,7 @@ fun SearchScreen(
     ) {
         Spacer(modifier = Modifier.height(100.dp))
         Text(
-            text = title,
+            text = "찾기 화면",
             fontSize = 24.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold

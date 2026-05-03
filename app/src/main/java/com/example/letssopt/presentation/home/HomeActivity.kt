@@ -23,9 +23,10 @@ import com.example.letssopt.navigation.searchGraph
 import com.example.letssopt.navigation.signupGraph
 import com.example.letssopt.navigation.storageGraph
 import com.example.letssopt.navigation.webtoonGraph
-import com.example.letssopt.component.BottomNavigation
-import com.example.letssopt.component.TopAppBar
-import com.example.letssopt.ui.theme.LETSSOPTTheme
+import com.example.letssopt.presentation.home.component.BottomNavigation
+import com.example.letssopt.presentation.home.component.TopAppBar
+import com.example.letssopt.core.ui.theme.LETSSOPTTheme
+import com.example.letssopt.presentation.home.component.LazyList
 
 class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

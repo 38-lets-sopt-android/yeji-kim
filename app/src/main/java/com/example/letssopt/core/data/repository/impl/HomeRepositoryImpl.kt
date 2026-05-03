@@ -1,9 +1,9 @@
-package com.example.letssopt.data.repository.impl
+package com.example.letssopt.core.data.repository.impl
 
 import com.example.letssopt.R
-import com.example.letssopt.data.Content
-import com.example.letssopt.data.HomeDataSet
-import com.example.letssopt.data.repository.HomeRepository
+import com.example.letssopt.core.data.Content
+import com.example.letssopt.core.data.HomeDataSet
+import com.example.letssopt.core.data.repository.HomeRepository
 
 class HomeRepositoryImpl : HomeRepository {
     private var homeDataSet: HomeDataSet? = null

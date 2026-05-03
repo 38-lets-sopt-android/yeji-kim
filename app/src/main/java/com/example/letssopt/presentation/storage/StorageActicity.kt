@@ -18,8 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.letssopt.ui.theme.LETSSOPTTheme
+import com.example.letssopt.core.ui.theme.LETSSOPTTheme
 
 
 class StorageActivity : ComponentActivity() {
@@ -36,11 +35,8 @@ class StorageActivity : ComponentActivity() {
 
 @Composable
 fun StorageScreen(
-    modifier: Modifier = Modifier,
-    viewModel: StorageViewModel = viewModel()
+    modifier: Modifier = Modifier
 ) {
-    val title = viewModel.storageTitle
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -49,7 +45,7 @@ fun StorageScreen(
     ) {
         Spacer(modifier = Modifier.height(100.dp))
         Text(
-            text = title,
+            text = "보관함 화면",
             fontSize = 24.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold

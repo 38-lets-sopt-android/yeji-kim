@@ -1,6 +1,6 @@
-package com.example.letssopt.data.repository.impl
+package com.example.letssopt.core.data.repository.impl
 
-import com.example.letssopt.data.repository.SearchRepository
+import com.example.letssopt.core.data.repository.SearchRepository
 
 class SearchRepositoryImpl : SearchRepository {
     override fun getSearchTitle(): String {

@@ -1,4 +1,4 @@
-package com.example.letssopt.data
+package com.example.letssopt.core.data
 
 data class Content(
     val title: String,

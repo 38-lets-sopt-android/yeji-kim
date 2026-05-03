@@ -4,8 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.letssopt.data.repository.HomeRepository
-import com.example.letssopt.data.repository.impl.HomeRepositoryImpl
+import com.example.letssopt.core.data.repository.HomeRepository
+import com.example.letssopt.core.data.repository.impl.HomeRepositoryImpl
 
 class HomeViewModel : ViewModel() {
     private val homeRepository: HomeRepository = HomeRepositoryImpl()

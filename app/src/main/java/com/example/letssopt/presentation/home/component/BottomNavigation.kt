@@ -1,4 +1,4 @@
-package com.example.letssopt.component
+package com.example.letssopt.presentation.home.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home

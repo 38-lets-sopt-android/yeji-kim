@@ -1,6 +1,6 @@
-package com.example.letssopt.data.repository.impl
+package com.example.letssopt.core.data.repository.impl
 
-import com.example.letssopt.data.repository.PurchaseRepository
+import com.example.letssopt.core.data.repository.PurchaseRepository
 
 class PurchaseRepositoryImpl : PurchaseRepository {
     override fun getPurchaseTitle(): String {
