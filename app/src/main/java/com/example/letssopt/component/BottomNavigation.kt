@@ -21,7 +21,7 @@ sealed class BottomNavItem(
     val title: String,
     val icon: ImageVector
 ) {
-    object Main : BottomNavItem(Route.Home, "메인", Icons.Default.Home)
+    object Home : BottomNavItem(Route.Home, "메인", Icons.Default.Home)
     object Purchase : BottomNavItem(Route.Purchase, "개별구매", Icons.Default.ShoppingCart)
     object Webtoon : BottomNavItem(Route.Webtoon, "웹툰", Icons.Default.Star)
     object Search : BottomNavItem(Route.Search, "찾기", Icons.Default.Search)
@@ -34,7 +34,7 @@ fun BottomNavigation(
     onTabSelected: (Int) -> Unit,
 ) {
     val navItems = listOf(
-        BottomNavItem.Main,
+        BottomNavItem.Home,
         BottomNavItem.Purchase,
         BottomNavItem.Webtoon,
         BottomNavItem.Search,
