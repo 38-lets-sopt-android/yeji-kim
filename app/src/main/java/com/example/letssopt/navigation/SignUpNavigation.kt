@@ -1,17 +1,17 @@
-package com.example.letssopt.Navigation
+package com.example.letssopt.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.letssopt.presentation.webtoon.WebtoonScreen
+import com.example.letssopt.presentation.user.SignUpScreen
 
-fun NavGraphBuilder.webtoonGraph(
+fun NavGraphBuilder.signupGraph(
     innerPadding: PaddingValues,
 ) {
-    composable<Route.Webtoon> {
-        WebtoonScreen(
+    composable<Route.SignUp> {
+        SignUpScreen(
             modifier = Modifier.padding(innerPadding)
         )
     }

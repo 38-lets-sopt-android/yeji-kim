@@ -14,7 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.example.letssopt.Navigation.Route
+import com.example.letssopt.navigation.Route
 
 sealed class BottomNavItem(
     val route: Any,

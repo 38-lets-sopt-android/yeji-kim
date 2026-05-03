@@ -1,4 +1,4 @@
-package com.example.letssopt.Navigation
+package com.example.letssopt.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding

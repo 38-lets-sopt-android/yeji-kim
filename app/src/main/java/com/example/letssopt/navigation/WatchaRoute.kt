@@ -1,4 +1,4 @@
-package com.example.letssopt.Navigation
+package com.example.letssopt.navigation
 
 import kotlinx.serialization.Serializable
 
