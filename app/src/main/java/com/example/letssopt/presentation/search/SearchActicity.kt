@@ -35,8 +35,8 @@ class SearchActivity : ComponentActivity() {
 
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel = viewModel(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: SearchViewModel = viewModel()
 ) {
     val title = viewModel.searchTitle
 
