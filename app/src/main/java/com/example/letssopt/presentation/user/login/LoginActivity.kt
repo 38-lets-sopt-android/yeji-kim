@@ -1,6 +1,5 @@
 package com.example.letssopt.presentation.user.login
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -28,6 +27,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,6 +46,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.R
 import com.example.letssopt.core.ui.theme.LETSSOPTTheme
 import com.example.letssopt.presentation.home.HomeActivity
@@ -70,10 +72,26 @@ class LoginActivity : ComponentActivity() {
             )
         )
         setContent {
+            val signUpLauncher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.StartActivityForResult()
+            ) { result ->
+
+            }
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     LoginScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
+                        loginSuccess = { mail ->
+                            val intent = Intent(this, HomeActivity::class.java).apply {
+                                putExtra("mail", mail)
+                            }
+                            startActivity(intent)
+                            finish()
+                        },
+                        signUpClick = {
+                            val intent = Intent(this, SignUpActivity::class.java)
+                            signUpLauncher.launch(intent)
+                        }
                     )
                 }
             }
@@ -82,24 +100,35 @@ class LoginActivity : ComponentActivity() {
 }
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    viewModel: LoginViewModel = viewModel(),
+    loginSuccess: (String) -> Unit,
+    signUpClick: () -> Unit
+) {
     val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
     val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
     var mail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var realMail by remember { mutableStateOf("") }
     var realPassword by remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
-    val signUpLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            realMail = result.data?.getStringExtra("mail") ?: ""
-            realPassword = result.data?.getStringExtra("password") ?: ""
-            mail = realMail
-            password = realPassword
+
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is LoginUiState.Success -> {
+                loginSuccess("")
+            }
+            is LoginUiState.Error -> {
+                Toast.makeText(context, (uiState as LoginUiState.Error).message, Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            else -> {}
         }
     }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -199,41 +228,13 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             fontFamily = pretendardRegular,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .clickable(onClick = {
-                    val intent = Intent(context, SignUpActivity::class.java)
-                    signUpLauncher.launch(intent)
-                })
+                .clickable { signUpClick() }
         )
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(
             onClick = {
-                when {
-                    mail != realMail -> {
-                        Toast.makeText(context, "이메일이 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
-                    }
-
-                    password != realPassword -> {
-                        Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
-                    }
-
-                    else -> {
-                        val pref = context.getSharedPreferences("LoginPref", Activity.MODE_PRIVATE)
-                        pref.edit().apply {
-                            putString("mail", mail)
-                            putBoolean("autoLogin", true)
-                            apply()
-                        }
-
-                        Toast.makeText(context, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(context, HomeActivity::class.java).apply {
-                            putExtra("mail", mail)
-                            putExtra("password", password)
-                        }
-                        context.startActivity(intent)
-                        (context as? Activity)?.finish()
-                    }
-                }
+                viewModel.login(mail, password, realMail, realPassword)
             },
             modifier = Modifier
                 .padding(bottom = 26.dp)
@@ -255,5 +256,5 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun LoginScreenPreview() {
-    LETSSOPTTheme { LoginScreen() }
+    LETSSOPTTheme { LoginScreen(loginSuccess = {}, signUpClick = {}) }
 }

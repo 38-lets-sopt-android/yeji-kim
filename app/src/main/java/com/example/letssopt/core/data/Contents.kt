@@ -10,3 +10,10 @@ data class HomeDataSet(
     val middleSection: List<Content>,
     val bottomSection: List<Content>
 )
+
+data class LoginDataSet(
+    val mail: String = "",
+    val password: String = "",
+    val realMail: String = "",
+    val realPassword: String = ""
+)

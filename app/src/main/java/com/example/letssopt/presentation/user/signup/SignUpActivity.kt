@@ -1,10 +1,6 @@
 package com.example.letssopt.presentation.user.signup
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns.EMAIL_ADDRESS
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -33,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -43,6 +38,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.R
 import com.example.letssopt.core.ui.theme.LETSSOPTTheme
 import android.graphics.Color as AndroidColor
@@ -68,13 +64,15 @@ class SignUpActivity : ComponentActivity() {
 }
 
 @Composable
-fun SignUpScreen(modifier: Modifier = Modifier) {
+fun SignUpScreen(
+    modifier: Modifier = Modifier,
+    viewModel: SignUpViewModel = viewModel()
+) {
     val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
     val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
     var mail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordConfirm by remember { mutableStateOf("") }
-    val context = LocalContext.current
     val isAllEntered = mail.isNotEmpty() && password.isNotEmpty() && passwordConfirm.isNotEmpty()
     Column(
         modifier = modifier
@@ -117,7 +115,11 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (mail.isEmpty()) {
-                        Text("이메일 주소를 입력하세요", color = Color(0xFF666666), fontFamily = pretendardRegular)
+                        Text(
+                            "이메일 주소를 입력하세요",
+                            color = Color(0xFF666666),
+                            fontFamily = pretendardRegular
+                        )
                     }
                     innerTextField()
                 }
@@ -141,7 +143,11 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (password.isEmpty()) {
-                        Text("비밀번호를 입력하세요", color = Color(0xFF666666), fontFamily = pretendardRegular)
+                        Text(
+                            "비밀번호를 입력하세요",
+                            color = Color(0xFF666666),
+                            fontFamily = pretendardRegular
+                        )
                     }
                     innerTextField()
                 }
@@ -165,7 +171,11 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (passwordConfirm.isEmpty()) {
-                        Text("비밀번호를 다시 입력하세요", color = Color(0xFF666666), fontFamily = pretendardRegular)
+                        Text(
+                            "비밀번호를 다시 입력하세요",
+                            color = Color(0xFF666666),
+                            fontFamily = pretendardRegular
+                        )
                     }
                     innerTextField()
                 }
@@ -176,31 +186,7 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
 
         Button(
             onClick = {
-                when {
-                    !EMAIL_ADDRESS.matcher(mail).matches() -> {
-                        Toast.makeText(context, "이메일 형식이 맞지 않습니다.", Toast.LENGTH_SHORT).show()
-                    }
-
-                    password.length !in 8..12 -> {
-                        Toast.makeText(context, "비밀번호는 8자 이상 12자 이하로 입력하세요.", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-                    password != passwordConfirm -> {
-                        Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
-                    }
-
-                    else -> {
-                        Toast.makeText(context, "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                        val intent = Intent().apply {
-                            putExtra("mail", mail)
-                            putExtra("password", password)
-                        }
-                        val activity = context as? Activity
-                        activity?.setResult(Activity.RESULT_OK, intent)
-                        activity?.finish()
-                    }
-                }
+                viewModel.signup(mail, password, passwordConfirm)
             },
             enabled = isAllEntered,
             modifier = Modifier

@@ -60,10 +60,10 @@ fun RowMiddleSectionItem(contents: List<Content>, modifier: Modifier = Modifier)
 
 @Composable
 fun HomeSectionList(
-    contentsMiddleSection: List<Content>,
-    contentsBottomSection: List<Content>,
-    contentsTopSection: List<Content>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    contentsMiddleSection: List<Content> = emptyList(),
+    contentsBottomSection: List<Content> = emptyList(),
+    contentsTopSection: List<Content> = emptyList()
 ) {
     val pretendardSemiBold = FontFamily(Font(R.font.pretendard_semibold))
 
