@@ -11,6 +11,8 @@ import com.example.letssopt.presentation.main.component.MainAppState
 import com.example.letssopt.presentation.purchase.purchaseGraph
 import com.example.letssopt.presentation.search.searchGraph
 import com.example.letssopt.presentation.storage.storageGraph
+import com.example.letssopt.presentation.user.login.loginGraph
+import com.example.letssopt.presentation.user.signup.signupGraph
 import com.example.letssopt.presentation.webtoon.webtoonGraph
 
 @Composable
@@ -23,6 +25,8 @@ private fun MainNavHost(
         startDestination = Home,
         modifier = Modifier.padding(innerPadding)
     ) {
+        loginGraph()
+        signupGraph()
         homeGraph()
         purchaseGraph()
         searchGraph()

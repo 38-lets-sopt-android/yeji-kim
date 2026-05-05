@@ -1,15 +1,16 @@
 package com.example.letssopt.presentation.user.signup
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.runtime.Composable
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
+import com.example.letssopt.navigation.MainTabRoute
+import com.example.letssopt.presentation.home.HomeScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object SignUp
-@Composable
-fun SignUpScreen(
-    paddingValues: PaddingValues,
-    SignUpClick: (name: String) -> Unit,
-    /* viewModel: DViewModel = viewModel(), */
-) {
+data object SignUp : MainTabRoute
+
+fun NavGraphBuilder.signupGraph() {
+    composable<SignUp> {
+        HomeScreen()
+    }
 }
