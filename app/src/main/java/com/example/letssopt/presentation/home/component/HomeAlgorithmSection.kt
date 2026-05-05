@@ -59,7 +59,7 @@ fun RowMiddleSectionItem(contents: List<Content>, modifier: Modifier = Modifier)
 }
 
 @Composable
-fun LazyList(
+fun HomeSectionList(
     contentsMiddleSection: List<Content>,
     contentsBottomSection: List<Content>,
     contentsTopSection: List<Content>,
