@@ -1,7 +1,10 @@
 package com.example.letssopt.presentation.user.login
 
 import androidx.lifecycle.ViewModel
-import com.example.letssopt.core.data.repository.AuthRepository
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.letssopt.core.data.repository.impl.AuthRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -12,10 +15,21 @@ sealed class LoginUiState {
 }
 
 class LoginViewModel(
-    private val AuthRepository: AuthRepository
+    private val AuthRepository: AuthRepositoryImpl
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val uiState = _uiState.asStateFlow()
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val repositoryImpl = AuthRepositoryImpl()
+                LoginViewModel(
+                    AuthRepository = repositoryImpl
+                )
+            }
+        }
+    }
 
     fun login(mail: String, password: String, realMail: String, realPassword: String) {
         when {

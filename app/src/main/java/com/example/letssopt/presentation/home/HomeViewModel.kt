@@ -18,7 +18,7 @@ data class HomeUiState(
 )
 
 class HomeViewModel(
-    private val homeRepository: HomeRepository
+    private val HomeRepository: HomeRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
@@ -27,7 +27,7 @@ class HomeViewModel(
             initializer {
                 val repositoryImpl = HomeRepositoryImpl()
                 HomeViewModel(
-                    homeRepository = repositoryImpl
+                    HomeRepository = repositoryImpl
                 )
             }
         }

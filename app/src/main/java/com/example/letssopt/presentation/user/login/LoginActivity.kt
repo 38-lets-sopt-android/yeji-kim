@@ -102,7 +102,9 @@ class LoginActivity : ComponentActivity() {
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel = viewModel(),
+    viewModel: LoginViewModel = viewModel(
+        factory = LoginViewModel.Factory
+    ),
     loginSuccess: (String) -> Unit,
     signUpClick: () -> Unit
 ) {
@@ -115,11 +117,13 @@ fun LoginScreen(
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
+
     LaunchedEffect(uiState) {
         when (uiState) {
             is LoginUiState.Success -> {
                 loginSuccess("")
             }
+
             is LoginUiState.Error -> {
                 Toast.makeText(context, (uiState as LoginUiState.Error).message, Toast.LENGTH_SHORT)
                     .show()
