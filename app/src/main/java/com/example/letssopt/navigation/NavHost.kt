@@ -15,7 +15,7 @@ import com.example.letssopt.presentation.user.signup.signupGraph
 import com.example.letssopt.presentation.webtoon.webtoonGraph
 
 @Composable
-private fun MainNavHost(
+fun MainNavHost(
     appState: MainAppState,
     innerPadding: PaddingValues,
 ) {
