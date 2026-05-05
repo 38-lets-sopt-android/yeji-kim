@@ -11,6 +11,7 @@ import com.example.letssopt.presentation.main.component.MainAppState
 import com.example.letssopt.presentation.purchase.purchaseGraph
 import com.example.letssopt.presentation.search.searchGraph
 import com.example.letssopt.presentation.storage.storageGraph
+import com.example.letssopt.presentation.user.login.Login
 import com.example.letssopt.presentation.user.login.loginGraph
 import com.example.letssopt.presentation.user.signup.signupGraph
 import com.example.letssopt.presentation.webtoon.webtoonGraph
@@ -22,10 +23,14 @@ private fun MainNavHost(
 ) {
     NavHost(
         navController = appState.navController,
-        startDestination = Home,
+        startDestination = Login,
         modifier = Modifier.padding(innerPadding)
     ) {
-        loginGraph()
+        loginGraph(
+            LoginSuccess = { id ->
+                appState.navController.navigate(Home)
+            }
+        )
         signupGraph()
         homeGraph()
         purchaseGraph()
