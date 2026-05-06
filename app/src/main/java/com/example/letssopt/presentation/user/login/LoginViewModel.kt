@@ -2,11 +2,14 @@ package com.example.letssopt.presentation.user.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.letssopt.core.data.repository.AuthRepository
 import com.example.letssopt.core.data.repository.impl.AuthRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 sealed class LoginUiState {
     data object Idle : LoginUiState()
@@ -15,7 +18,7 @@ sealed class LoginUiState {
 }
 
 class LoginViewModel(
-    private val AuthRepository: AuthRepositoryImpl
+    private val authRepository: AuthRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val uiState = _uiState.asStateFlow()
@@ -23,27 +26,21 @@ class LoginViewModel(
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val repositoryImpl = AuthRepositoryImpl()
                 LoginViewModel(
-                    AuthRepository = repositoryImpl
+                    authRepository = AuthRepositoryImpl()
                 )
             }
         }
     }
 
-    fun login(mail: String, password: String, realMail: String, realPassword: String) {
-        when {
-            mail != realMail -> {
-                _uiState.value = LoginUiState.Error("이메일이 일치하지 않습니다.")
-            }
 
-            password != realPassword -> {
-                _uiState.value = LoginUiState.Error("비밀번호가 일치하지 않습니다.")
-            }
-
-            else -> {
-                _uiState.value = LoginUiState.Success
-            }
+    fun login(mail: String, password: String) {
+        viewModelScope.launch {
+            val result = authRepository.login(mail, password)
+            result.fold(
+                onSuccess = { _uiState.value = LoginUiState.Success },
+                onFailure = { _uiState.value = LoginUiState.Error(it.message ?: "로그인 실패") }
+            )
         }
     }
 }

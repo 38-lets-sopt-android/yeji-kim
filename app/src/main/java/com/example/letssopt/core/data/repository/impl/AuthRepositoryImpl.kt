@@ -1,43 +1,27 @@
 package com.example.letssopt.core.data.repository.impl
 
-import com.example.letssopt.core.data.LoginDataSet
-
-interface AuthRepository {
-    fun getAuthDataSet(): List<LoginDataSet> {
-        return listOf(
-            LoginDataSet()
-        )
-    }
-}
+import com.example.letssopt.core.data.repository.AuthRepository
 
 class AuthRepositoryImpl : AuthRepository {
-    fun login(id: String, pw: String): Result<Unit> {
-        return try {
-            val result = login(id, pw)
 
-            return if (id == "yeji" && pw == "1234") {
-                Result.success(Unit)
-            } else {
-                Result.failure(result.exceptionOrNull() ?: Exception("로그인 실패"))
-            }
-
-        } catch (e: Exception) {
-            Result.failure(e)
+    override suspend fun signUp(email: String, pw: String): Result<Unit> {
+        return if (email == "yeji@test.com" && pw == "12345678") {
+            Result.success(Unit)
+        } else {
+            Result.failure(Exception("회원가입 실패"))
         }
     }
 
-    fun signup(id: String, pw: String): Result<Unit> {
-        return try {
-            val result = signup(id, pw)
-
-            return if (id == "yeji" && pw == "1234") {
-                Result.success(Unit)
-            } else {
-                Result.failure(result.exceptionOrNull() ?: Exception("로그인 실패"))
-            }
-
-        } catch (e: Exception) {
-            Result.failure(e)
+    override suspend fun login(email: String, pw: String): Result<Unit> {
+        return if (email == "yeji@test.com" && pw == "12345678") {
+            Result.success(Unit)
+        } else {
+            Result.failure(Exception("로그인 실패"))
         }
     }
+
+    override fun getLoggedIn(): Boolean = false
+    override fun setLoggedIn(isLoggedIn: Boolean) {}
+    override fun getEmail(): String? = null
+    override fun getPassword(): String? = null
 }

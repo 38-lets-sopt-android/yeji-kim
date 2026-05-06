@@ -27,6 +27,9 @@ fun MainNavHost(
         loginGraph(
             LoginSuccess = { id ->
                 appState.navController.navigate(Home)
+            },
+            SignUpClick = {
+                appState.navController.navigate(SignUp)
             }
         )
         signupGraph()

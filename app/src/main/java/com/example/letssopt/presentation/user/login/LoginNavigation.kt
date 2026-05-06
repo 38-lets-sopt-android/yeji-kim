@@ -5,12 +5,13 @@ import androidx.navigation.compose.composable
 import com.example.letssopt.navigation.Login
 
 fun NavGraphBuilder.loginGraph(
-    LoginSuccess: (String) -> Unit
+    LoginSuccess: (String) -> Unit,
+    SignUpClick: () -> Unit
 ) {
     composable<Login> {
         LoginScreen(
             loginSuccess = LoginSuccess,
-            signUpClick = {}
+            signUpClick = SignUpClick
         )
     }
 }

@@ -112,8 +112,6 @@ fun LoginScreen(
     val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
     var mail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var realMail by remember { mutableStateOf("") }
-    var realPassword by remember { mutableStateOf("") }
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
@@ -238,7 +236,7 @@ fun LoginScreen(
 
         Button(
             onClick = {
-                viewModel.login(mail, password, realMail, realPassword)
+                viewModel.login(mail, password)
             },
             modifier = Modifier
                 .padding(bottom = 26.dp)

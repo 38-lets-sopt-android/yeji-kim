@@ -13,7 +13,5 @@ data class HomeDataSet(
 
 data class LoginDataSet(
     val mail: String = "",
-    val password: String = "",
-    val realMail: String = "",
-    val realPassword: String = ""
+    val password: String = ""
 )
