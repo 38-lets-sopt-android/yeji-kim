@@ -26,12 +26,6 @@ fun BottomNavigation(
         MainTab.STORAGE
     )
 
-    /*
-    public inline fun <T> Iterable<T>.forEachIndexed(action: (index: Int, T) -> Unit): Unit {
-    var index = 0
-    for (item in this) action(checkIndexOverflow(index++), item)
-     */
-
     NavigationBar(containerColor = Color(0xFF141414)) {
         navItems.forEachIndexed { int, item ->
             selectedTabIndex == int
