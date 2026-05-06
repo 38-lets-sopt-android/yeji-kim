@@ -3,6 +3,7 @@ package com.example.letssopt.presentation.home.component
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -35,6 +36,9 @@ fun BottomNavigation(
                 NavigationBarItem(
                     selected = selectedTabIndex == int,
                     onClick = { onTabSelected(int) },
+                    colors = NavigationBarItemDefaults.colors(
+                        indicatorColor = Color.Transparent
+                    ),
                     icon = {
                         Icon(
                             imageVector = ImageVector.vectorResource(
