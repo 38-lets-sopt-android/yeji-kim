@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LETSSOPT">
         <activity
-            android:name=".presentation.user.login.LoginActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.LETSSOPT"
             android:windowSoftInputMode="adjustResize">
@@ -21,13 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.home.HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.user.signup.SignUpActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".presentation.main.MainActivity" />
     </application>
 
 </manifest>
