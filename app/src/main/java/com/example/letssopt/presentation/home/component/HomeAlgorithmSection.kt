@@ -73,6 +73,9 @@ fun HomeSectionList(
             .background(color = Color(141414))
     ) {
         item {
+            TopAppBar()
+        }
+        item {
             Column(modifier = Modifier) {
                 Column(modifier = Modifier.padding(start = 19.dp, top = 24.dp, bottom = 14.dp)) {
                     Text(
