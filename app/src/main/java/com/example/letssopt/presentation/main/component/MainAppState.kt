@@ -55,7 +55,7 @@ class MainAppState(
         .stateIn(
             scope = coroutineScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = true
+            initialValue = false
         )
 
     @MainThread

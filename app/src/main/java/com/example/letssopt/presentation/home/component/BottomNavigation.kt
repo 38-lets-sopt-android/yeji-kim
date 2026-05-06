@@ -27,29 +27,31 @@ fun BottomNavigation(
         MainTab.STORAGE
     )
 
-    NavigationBar(containerColor = Color(0xFF141414)) {
-        navItems.forEachIndexed { int, item ->
-            selectedTabIndex == int
+    if (isshowBottomBar) {
+        NavigationBar(containerColor = Color(0xFF141414)) {
+            navItems.forEachIndexed { int, item ->
+                selectedTabIndex == int
 
-            NavigationBarItem(
-                selected = selectedTabIndex == int,
-                onClick = { onTabSelected(int) },
-                icon = {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(
-                            id = if (selectedTabIndex == int) item.selectedIconRes else item.unselectedIconRes
-                        ),
-                        contentDescription = null,
-                        tint = Color.Unspecified
-                    )
-                },
-                label = {
-                    Text(
-                        text = stringResource(id = item.titleRes),
-                        color = if (selectedTabIndex == int) Color.White else Color.Gray
-                    )
-                }
-            )
+                NavigationBarItem(
+                    selected = selectedTabIndex == int,
+                    onClick = { onTabSelected(int) },
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(
+                                id = if (selectedTabIndex == int) item.selectedIconRes else item.unselectedIconRes
+                            ),
+                            contentDescription = null,
+                            tint = Color.Unspecified
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = stringResource(id = item.titleRes),
+                            color = if (selectedTabIndex == int) Color.White else Color.Gray
+                        )
+                    }
+                )
+            }
         }
     }
 }
