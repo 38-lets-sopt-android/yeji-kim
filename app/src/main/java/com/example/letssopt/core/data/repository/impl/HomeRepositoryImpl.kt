@@ -6,16 +6,6 @@ import com.example.letssopt.core.data.HomeDataSet
 import com.example.letssopt.core.data.repository.HomeRepository
 
 class HomeRepositoryImpl : HomeRepository {
-    /*
-    private var homeDataSet: HomeDataSet? = null
-
-    override fun getHomeDataSet(): HomeDataSet {
-        if (homeDataSet == null) {
-            homeDataSet = createHomeDataSet()
-        }
-        return homeDataSet!!
-    }
-    */
     override fun getHomeDataSet(): HomeDataSet {
         return HomeDataSet(
             topSection = listOf(Content("크라임씬", R.drawable.img_crime), Content("프로젝트 헤일메리", R.drawable.img_hailmary), Content("왕과 사는 남자", R.drawable.img_king)),
