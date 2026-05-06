@@ -10,6 +10,11 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.example.letssopt.presentation.home.navigation.navigateToHome
+import com.example.letssopt.presentation.purchase.navigateToPurchase
+import com.example.letssopt.presentation.search.navigateToSearch
+import com.example.letssopt.presentation.storage.navigateToStorage
+import com.example.letssopt.presentation.webtoon.navigateToWebtoon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -50,7 +55,7 @@ class MainAppState(
         .stateIn(
             scope = coroutineScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = false
+            initialValue = true
         )
 
     @MainThread
@@ -62,13 +67,13 @@ class MainAppState(
             launchSingleTop = true
             restoreState = true
         }
-        /*when (tab) {
+        when (tab) {
             MainTab.HOME -> navController.navigateToHome(navOptions = navOptions)
             MainTab.PURCHASE -> navController.navigateToPurchase(navOptions = navOptions)
             MainTab.WEBTOON -> navController.navigateToWebtoon(navOptions = navOptions)
             MainTab.SEARCH -> navController.navigateToSearch(navOptions = navOptions)
             MainTab.STORAGE -> navController.navigateToStorage(navOptions = navOptions)
-        }*/
+        }
     }
 }
 

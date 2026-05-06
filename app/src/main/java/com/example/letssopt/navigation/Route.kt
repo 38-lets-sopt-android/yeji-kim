@@ -3,11 +3,10 @@ package com.example.letssopt.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object Login : MainTabRoute
+data object Login : AuthRoute
 
 @Serializable
-data object SignUp : MainTabRoute
-
+data object SignUp : AuthRoute
 @Serializable
 data object Home : MainTabRoute
 

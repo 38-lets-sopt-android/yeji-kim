@@ -32,7 +32,13 @@ fun MainNavHost(
                 appState.navController.navigate(SignUp)
             }
         )
-        signupGraph()
+        signupGraph(
+            onSignUpSuccess = {
+                appState.navController.navigate(Login) {
+                    popUpTo(SignUp) { inclusive = true }
+                }
+            }
+        )
         homeGraph()
         purchaseGraph()
         searchGraph()

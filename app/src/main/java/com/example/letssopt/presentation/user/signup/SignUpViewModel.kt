@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.letssopt.core.data.repository.AuthRepository
 import com.example.letssopt.core.data.repository.impl.AuthRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 sealed class SignUpUiState {
@@ -21,6 +22,7 @@ class SignUpViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<SignUpUiState>(SignUpUiState.Idle)
+    val uiState = _uiState.asStateFlow()
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {

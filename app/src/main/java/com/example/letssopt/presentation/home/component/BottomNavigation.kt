@@ -15,6 +15,7 @@ import com.example.letssopt.presentation.main.component.MainTab
 fun BottomNavigation(
     isshowBottomBar: Boolean,
     currentTab: MainTab,
+    tabs: List<MainTab>,
     selectedTabIndex: Int,
     onTabSelected: (Int) -> Unit,
 ) {

@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.letssopt.navigation.MainNavHost
 import com.example.letssopt.presentation.home.component.BottomNavigation
@@ -20,15 +21,16 @@ fun MainScreen(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        containerColor = Color(0xFF141414),
         bottomBar = {
             BottomNavigation(
                 isshowBottomBar = showBottomBar,
+                tabs = MainTab.entries.toList(),
                 currentTab = currentTab ?: MainTab.HOME,
                 selectedTabIndex = MainTab.entries.indexOf(currentTab),
                 onTabSelected = { index ->
-                    val targetTab = MainTab.entries[index]
-                    appState.navController.navigate(targetTab.route)
-                }
+                    val selectedTab = MainTab.entries[index]
+                    appState.navigate(selectedTab) }
             )
         }
     ) { innerPadding ->

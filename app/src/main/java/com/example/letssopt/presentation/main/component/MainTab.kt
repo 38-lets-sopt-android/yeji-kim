@@ -6,7 +6,6 @@ import com.example.letssopt.R
 import com.example.letssopt.navigation.Home
 import com.example.letssopt.navigation.MainTabRoute
 import com.example.letssopt.navigation.Purchase
-import com.example.letssopt.navigation.Route
 import com.example.letssopt.navigation.Search
 import com.example.letssopt.navigation.Storage
 import com.example.letssopt.navigation.Webtoon
@@ -53,7 +52,7 @@ enum class MainTab(
             return entries.find { predicate(it.route) }
         }
 
-        fun contains(predicate: (Route) -> Boolean): Boolean {
+        fun contains(predicate: (MainTabRoute) -> Boolean): Boolean {
             return entries.any { predicate(it.route) }
         }
     }

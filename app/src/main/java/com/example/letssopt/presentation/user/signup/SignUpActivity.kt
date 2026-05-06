@@ -3,10 +3,8 @@ package com.example.letssopt.presentation.user.signup
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +21,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,13 +53,8 @@ class SignUpActivity : ComponentActivity() {
             )
         )
         setContent {
-            val signUpLauncher = rememberLauncherForActivityResult(
-                contract = ActivityResultContracts.StartActivityForResult()
-            ) { result ->
-
-            }
             LETSSOPTTheme {
-                SignUpScreen()
+                SignUpScreen( onSignUpSuccess = {} )
             }
         }
     }
@@ -69,6 +64,7 @@ class SignUpActivity : ComponentActivity() {
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
+    onSignUpSuccess: () -> Unit,
     viewModel: SignUpViewModel = viewModel(
         factory = SignUpViewModel.Factory
     )
@@ -78,8 +74,15 @@ fun SignUpScreen(
     var mail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordConfirm by remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsState()
     val isAllEntered =
         mail.isNotEmpty() && password.isNotEmpty() && passwordConfirm.isNotEmpty()
+
+    LaunchedEffect(uiState) {
+        if (uiState is SignUpUiState.Success) {
+            onSignUpSuccess()
+        }
+    }
 
     Column(
         modifier = modifier
@@ -217,5 +220,7 @@ fun SignUpScreen(
 @Preview(showBackground = true)
 @Composable
 private fun SignUpScreenPreview() {
-    LETSSOPTTheme { SignUpScreen() }
+    LETSSOPTTheme {
+        SignUpScreen( onSignUpSuccess = {} )
+    }
 }
