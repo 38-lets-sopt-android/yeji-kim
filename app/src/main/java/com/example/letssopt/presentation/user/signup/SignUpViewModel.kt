@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.letssopt.core.data.dto.SignUpRequest
+import com.example.letssopt.core.data.dto.client.RetrofitClient
 import com.example.letssopt.core.data.repository.AuthRepository
 import com.example.letssopt.core.data.repository.impl.AuthRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +16,7 @@ import kotlinx.coroutines.launch
 
 sealed class SignUpUiState {
     data object Idle : SignUpUiState()
+    object Loading : SignUpUiState()
     data object Success : SignUpUiState()
     data class Error(val message: String) : SignUpUiState()
 }
@@ -33,7 +36,15 @@ class SignUpViewModel(
         }
     }
 
-    fun signup(id: String, password: String, passwordConfirm: String, mail: String, name: String, age: Int, part: String) {
+    fun signup(
+        id: String,
+        password: String,
+        passwordConfirm: String,
+        mail: String,
+        name: String,
+        age: Int,
+        part: String
+    ) {
         when {
             password.length !in 8..12 ->
                 _uiState.value = SignUpUiState.Error("비밀번호는 8자 이상 12자 이하로 입력하세요.")
@@ -44,15 +55,22 @@ class SignUpViewModel(
             !EMAIL_ADDRESS.matcher(mail).matches() ->
                 _uiState.value = SignUpUiState.Error("이메일 형식이 맞지 않습니다.")
 
-            else -> {
-                viewModelScope.launch {
-                    val result = authRepository.signUp(id, password, mail, name, age, part)
-                    result.fold(
-                        onSuccess = { _uiState.value = SignUpUiState.Success },
-                        onFailure = {
-                            _uiState.value = SignUpUiState.Error(it.message ?: "회원가입 실패")
-                        }
+            else -> viewModelScope.launch {
+                _uiState.value = SignUpUiState.Loading
+
+                runCatching {
+                    RetrofitClient.apiService.signUp(
+                        SignUpRequest(id, password, passwordConfirm, mail, name, age, part)
                     )
+                }.onSuccess { response ->
+                    if (response.isSuccessful) {
+                        _uiState.value = SignUpUiState.Success
+                    } else {
+                        val message = response.body()?.message ?: "회원가입에 실패했습니다"
+                        _uiState.value = SignUpUiState.Error(message)
+                    }
+                }.onFailure { e ->
+                    _uiState.value = SignUpUiState.Error(e.message ?: "네트워크 오류가 발생했습니다")
                 }
             }
         }
