@@ -34,9 +34,9 @@ class LoginViewModel(
     }
 
 
-    fun login(mail: String, password: String) {
+    fun login(id: String, password: String) {
         viewModelScope.launch {
-            val result = authRepository.login(mail, password)
+            val result = authRepository.login(id, password)
             result.fold(
                 onSuccess = { _uiState.value = LoginUiState.Success },
                 onFailure = { _uiState.value = LoginUiState.Error(it.message ?: "로그인 실패") }

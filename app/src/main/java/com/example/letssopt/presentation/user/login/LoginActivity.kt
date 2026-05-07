@@ -110,7 +110,7 @@ fun LoginScreen(
 ) {
     val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
     val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
-    var mail by remember { mutableStateOf("") }
+    var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
@@ -149,7 +149,7 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(26.dp))
         Text(
-            text = "이메일로 로그인",
+            text = "아이디로 로그인",
             fontSize = 20.sp,
             color = Color(0xFFFFFFFF),
             fontWeight = FontWeight.Bold,
@@ -157,15 +157,15 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(36.dp))
         Text(
-            text = "이메일",
+            text = "아이디",
             color = Color(0xFF999999),
             fontWeight = FontWeight.W400,
             fontFamily = pretendardRegular
         )
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
-            value = mail,
-            onValueChange = { mail = it },
+            value = id,
+            onValueChange = { id = it },
             textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             decorationBox = { innerTextField ->
@@ -176,9 +176,9 @@ fun LoginScreen(
                         .padding(16.dp),
                     contentAlignment = Alignment.CenterStart
                 ) {
-                    if (mail.isEmpty()) {
+                    if (id.isEmpty()) {
                         Text(
-                            "이메일 주소를 입력하세요",
+                            "아이디를 입력하세요",
                             color = Color(0xFF666666),
                             fontFamily = pretendardRegular
                         )
@@ -236,7 +236,7 @@ fun LoginScreen(
 
         Button(
             onClick = {
-                viewModel.login(mail, password)
+                viewModel.login(id, password)
             },
             modifier = Modifier
                 .padding(bottom = 26.dp)
