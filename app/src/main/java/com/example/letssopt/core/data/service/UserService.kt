@@ -8,7 +8,7 @@ import retrofit2.http.PATCH
 import retrofit2.http.Query
 
 interface UserService {
-    @GET("api/v1/users")
+    @GET("/api/v1/users/{userId}")
     suspend fun getUserProfile(
         @Query("Id") userId: String
     ): Response<GetUserProfile>
@@ -18,7 +18,7 @@ interface UserService {
         @Query("Id") userId: String
     ): Response<GetUserProfile>
 
-    @GET("api/v1/users")
+    @GET("/api/v1/users/{userId}")
     suspend fun getUserList(
     ): UserList
 }
