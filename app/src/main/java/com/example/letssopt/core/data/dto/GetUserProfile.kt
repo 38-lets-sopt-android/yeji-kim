@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SignInResponse(
+data class GetUserProfile(
     @SerialName("success")
     val success: Boolean,
     @SerialName("status")
@@ -14,11 +14,21 @@ data class SignInResponse(
     @SerialName("code")
     val code: String,
     @SerialName("data")
-    val data: UserIdData ?= null
+    val data: UserData ?= null
 )
 
 @Serializable
-data class UserIdData(
-    @SerialName("userId")
-    val userId: Int
+data class UserData(
+    @SerialName("id")
+    val id: Int,
+    @SerialName("loginId")
+    val loginId: String,
+    @SerialName("name")
+    val name: String,
+    @SerialName("email")
+    val email: String,
+    @SerialName("age")
+    val age: Int,
+    @SerialName("part")
+    val part: String
 )
