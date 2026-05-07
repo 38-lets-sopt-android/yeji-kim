@@ -12,8 +12,8 @@ class AuthRepositoryImpl : AuthRepository {
         }
     }
 
-    override suspend fun signUp(email: String, pw: String): Result<Unit> {
-        return if (email.isNotEmpty() && pw.isNotEmpty()) {
+    override suspend fun signUp(id: String, pw: String, mail: String, name: String, age: Int, part: String): Result<Unit> {
+        return if (id.isNotEmpty() && pw.isNotEmpty() && mail.isNotEmpty() && name.isNotEmpty() && age > 0 && part.isNotEmpty()) {
             Result.success(Unit)
         } else {
             Result.failure(Exception("회원가입 실패"))

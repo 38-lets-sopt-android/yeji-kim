@@ -33,20 +33,20 @@ class SignUpViewModel(
         }
     }
 
-    fun signup(mail: String, password: String, passwordConfirm: String) {
+    fun signup(id: String, password: String, passwordConfirm: String, mail: String, name: String, age: Int, part: String) {
         when {
-            !EMAIL_ADDRESS.matcher(mail).matches() ->
-                _uiState.value = SignUpUiState.Error("이메일 형식이 맞지 않습니다.")
-
             password.length !in 8..12 ->
                 _uiState.value = SignUpUiState.Error("비밀번호는 8자 이상 12자 이하로 입력하세요.")
 
             password != passwordConfirm ->
                 _uiState.value = SignUpUiState.Error("비밀번호가 일치하지 않습니다.")
 
+            !EMAIL_ADDRESS.matcher(mail).matches() ->
+                _uiState.value = SignUpUiState.Error("이메일 형식이 맞지 않습니다.")
+
             else -> {
                 viewModelScope.launch {
-                    val result = authRepository.signUp(mail, password)
+                    val result = authRepository.signUp(id, password, mail, name, age, part)
                     result.fold(
                         onSuccess = { _uiState.value = SignUpUiState.Success },
                         onFailure = {

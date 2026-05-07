@@ -71,12 +71,22 @@ fun SignUpScreen(
 ) {
     val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
     val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
-    var mail by remember { mutableStateOf("") }
+    var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordConfirm by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
+    var mail by remember { mutableStateOf("") }
+    var age by remember { mutableStateOf("") }
+    var part by remember { mutableStateOf("") }
     val uiState by viewModel.uiState.collectAsState()
     val isAllEntered =
-        mail.isNotEmpty() && password.isNotEmpty() && passwordConfirm.isNotEmpty()
+        id.isNotEmpty() &&
+                password.isNotEmpty() &&
+                passwordConfirm.isNotEmpty() &&
+                name.isNotEmpty() &&
+                mail.isNotEmpty() &&
+                age.isNotEmpty() &&
+                part.isNotEmpty()
 
     LaunchedEffect(uiState) {
         if (uiState is SignUpUiState.Success) {
@@ -109,13 +119,12 @@ fun SignUpScreen(
             fontFamily = pretendardBold,
         )
         Spacer(modifier = Modifier.height(36.dp))
-        Text(text = "이메일", color = Color(0xFF999999), fontFamily = pretendardRegular)
+        Text(text = "아이디", color = Color(0xFF999999), fontFamily = pretendardRegular)
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
-            value = mail,
-            onValueChange = { mail = it },
+            value = id,
+            onValueChange = { id = it },
             textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             decorationBox = { innerTextField ->
                 Box(
                     modifier = Modifier
@@ -124,9 +133,9 @@ fun SignUpScreen(
                         .padding(16.dp),
                     contentAlignment = Alignment.CenterStart
                 ) {
-                    if (mail.isEmpty()) {
+                    if (id.isEmpty()) {
                         Text(
-                            "이메일 주소를 입력하세요",
+                            "아이디를 입력하세요",
                             color = Color(0xFF666666),
                             fontFamily = pretendardRegular
                         )
@@ -191,12 +200,117 @@ fun SignUpScreen(
                 }
             }
         )
+        Spacer(modifier = Modifier.height(18.dp))
+        Text(text = "이름", color = Color(0xFF999999), fontFamily = pretendardRegular)
+        Spacer(modifier = Modifier.height(3.dp))
+        BasicTextField(
+            value = name,
+            onValueChange = { name = it },
+            textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
+                        .padding(16.dp),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    if (name.isEmpty()) {
+                        Text(
+                            "이름을 입력하세요",
+                            color = Color(0xFF666666),
+                            fontFamily = pretendardRegular
+                        )
+                    }
+                    innerTextField()
+                }
+            }
+        )
+        Spacer(modifier = Modifier.height(18.dp))
+        Text(text = "이메일", color = Color(0xFF999999), fontFamily = pretendardRegular)
+        Spacer(modifier = Modifier.height(3.dp))
+        BasicTextField(
+            value = mail,
+            onValueChange = { mail = it },
+            textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
+                        .padding(16.dp),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    if (mail.isEmpty()) {
+                        Text(
+                            "이메일을 입력하세요",
+                            color = Color(0xFF666666),
+                            fontFamily = pretendardRegular
+                        )
+                    }
+                    innerTextField()
+                }
+            }
+        )
+        Spacer(modifier = Modifier.height(18.dp))
+        Text(text = "나이", color = Color(0xFF999999), fontFamily = pretendardRegular)
+        Spacer(modifier = Modifier.height(3.dp))
+        BasicTextField(
+            value = age,
+            onValueChange = { age = it },
+            textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
+                        .padding(16.dp),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    if (age.isEmpty()) {
+                        Text(
+                            "나이를 입력하세요",
+                            color = Color(0xFF666666),
+                            fontFamily = pretendardRegular
+                        )
+                    }
+                    innerTextField()
+                }
+            }
+        )
+        Spacer(modifier = Modifier.height(18.dp))
+        Text(text = "파트", color = Color(0xFF999999), fontFamily = pretendardRegular)
+        Spacer(modifier = Modifier.height(3.dp))
+        BasicTextField(
+            value = part,
+            onValueChange = { part = it },
+            textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
+                        .padding(16.dp),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    if (part.isEmpty()) {
+                        Text(
+                            "파트를 입력하세요",
+                            color = Color(0xFF666666),
+                            fontFamily = pretendardRegular
+                        )
+                    }
+                    innerTextField()
+                }
+            }
+        )
 
         Spacer(modifier = Modifier.weight(1f))
 
         Button(
             onClick = {
-                viewModel.signup(mail, password, passwordConfirm)
+                viewModel.signup(id, password, passwordConfirm, mail, name, age.toInt(), part)
             },
             enabled = isAllEntered,
             modifier = Modifier
