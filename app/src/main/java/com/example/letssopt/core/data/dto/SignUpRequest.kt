@@ -9,6 +9,8 @@ data class SignUpRequest(
     val loginId: String,
     @SerialName("password")
     val password: String,
+    @SerialName("passwordConfirm")
+    val passwordConfirm: String,
     @SerialName("name")
     val name: String,
     @SerialName("email")
