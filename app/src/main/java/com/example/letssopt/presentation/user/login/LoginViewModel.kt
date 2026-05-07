@@ -45,15 +45,10 @@ class LoginViewModel(
                 RetrofitClient.apiService.signIn(
                     SignInRequest(id, password)
                 )
-            }.onSuccess { response ->
-                if (response.isSuccessful) {
-                    _uiState.value = LoginUiState.Success
-                } else {
-                    val message = response.body()?.message ?: "로그인에 실패했습니다"
-                    _uiState.value = LoginUiState.Error(message)
-                }
-            }.onFailure { e ->
-                _uiState.value = LoginUiState.Error(e.message ?: "네트워크 오류가 발생했습니다")
+            }.onSuccess {
+                _uiState.value = LoginUiState.Success
+            }.onFailure {
+                _uiState.value = LoginUiState.Error(it.message ?: "로그인 실패")
             }
         }
     }
