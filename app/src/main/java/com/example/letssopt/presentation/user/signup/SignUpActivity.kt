@@ -292,6 +292,7 @@ fun SignUpScreen(
                 value = age,
                 onValueChange = { age = it },
                 textStyle = TextStyle(color = Color.White, fontSize = 14.sp),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 decorationBox = { innerTextField ->
                     Box(
                         modifier = Modifier
