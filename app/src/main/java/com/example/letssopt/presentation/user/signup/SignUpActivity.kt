@@ -6,7 +6,6 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -32,7 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -44,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.R
 import com.example.letssopt.core.ui.theme.LETSSOPTTheme
+import com.example.letssopt.core.ui.theme.SignUpTextField
 import android.graphics.Color as AndroidColor
 
 class SignUpActivity : ComponentActivity() {
@@ -72,7 +70,6 @@ fun SignUpScreen(
     )
 ) {
     val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
-    val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
     var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordConfirm by remember { mutableStateOf("") }
@@ -96,7 +93,6 @@ fun SignUpScreen(
         }
     }
 
-// theme 만들고싶다
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -128,219 +124,62 @@ fun SignUpScreen(
             )
         }
         item {
-            Spacer(modifier = Modifier.height(36.dp))
-            Text(text = "아이디", color = Color(0xFF999999), fontFamily = pretendardRegular)
-        }
-        item {
-            Spacer(modifier = Modifier.height(3.dp))
-            BasicTextField(
+            SignUpTextField(
+                label = "아이디",
                 value = id,
-                onValueChange = { id = it },
-                textStyle = TextStyle(color = Color.White, fontSize = 14.sp),
-                decorationBox = { innerTextField ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
-                            .padding(16.dp),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        if (id.isEmpty()) {
-                            Text(
-                                "아이디를 입력하세요",
-                                color = Color(0xFF666666),
-                                fontFamily = pretendardRegular
-                            )
-                        }
-                        innerTextField()
-                    }
-                }
+                placeholder = "아이디를 입력하세요",
+                onValueChange = { id = it }
             )
         }
         item {
-            Spacer(modifier = Modifier.height(18.dp))
-            Text(text = "비밀번호", color = Color(0xFF999999), fontFamily = pretendardRegular)
-        }
-        item {
-            Spacer(modifier = Modifier.height(3.dp))
-            BasicTextField(
+            SignUpTextField(
+                label = "비밀번호",
                 value = password,
+                placeholder = "비밀번호를 입력하세요",
                 onValueChange = { password = it },
-                textStyle = TextStyle(color = Color.White, fontSize = 14.sp),
-                visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                decorationBox = { innerTextField ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
-                            .padding(16.dp),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        if (password.isEmpty()) {
-                            Text(
-                                "비밀번호를 입력하세요",
-                                color = Color(0xFF666666),
-                                fontFamily = pretendardRegular
-                            )
-                        }
-                        innerTextField()
-                    }
-                }
+                visualTransformation = PasswordVisualTransformation()
             )
         }
         item {
-            Spacer(modifier = Modifier.height(18.dp))
-            Text(text = "비밀번호 확인", color = Color(0xFF999999), fontFamily = pretendardRegular)
-        }
-        item {
-            Spacer(modifier = Modifier.height(3.dp))
-            BasicTextField(
+            SignUpTextField(
+                label = "비밀번호 확인",
                 value = passwordConfirm,
-                onValueChange = { passwordConfirm = it },
-                textStyle = TextStyle(color = Color.White, fontSize = 14.sp),
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                decorationBox = { innerTextField ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
-                            .padding(16.dp),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        if (passwordConfirm.isEmpty()) {
-                            Text(
-                                "비밀번호를 다시 입력하세요",
-                                color = Color(0xFF666666),
-                                fontFamily = pretendardRegular
-                            )
-                        }
-                        innerTextField()
-                    }
-                }
+                placeholder = "비밀번호를 다시 입력하세요",
+                onValueChange = { passwordConfirm = it }
             )
         }
         item {
-            Spacer(modifier = Modifier.height(18.dp))
-            Text(text = "이름", color = Color(0xFF999999), fontFamily = pretendardRegular)
-        }
-        item {
-            Spacer(modifier = Modifier.height(3.dp))
-            BasicTextField(
+            SignUpTextField(
+                label = "이름",
                 value = name,
-                onValueChange = { name = it },
-                textStyle = TextStyle(color = Color.White, fontSize = 14.sp),
-                decorationBox = { innerTextField ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
-                            .padding(16.dp),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        if (name.isEmpty()) {
-                            Text(
-                                "이름을 입력하세요",
-                                color = Color(0xFF666666),
-                                fontFamily = pretendardRegular
-                            )
-                        }
-                        innerTextField()
-                    }
-                }
+                placeholder = "이름을 입력하세요",
+                onValueChange = { name = it }
             )
         }
         item {
-            Spacer(modifier = Modifier.height(18.dp))
-            Text(text = "이메일", color = Color(0xFF999999), fontFamily = pretendardRegular)
-        }
-        item {
-            Spacer(modifier = Modifier.height(3.dp))
-            BasicTextField(
+            SignUpTextField(
+                label = "이메일",
                 value = mail,
-                onValueChange = { mail = it },
-                textStyle = TextStyle(color = Color.White, fontSize = 14.sp),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                decorationBox = { innerTextField ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
-                            .padding(16.dp),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        if (mail.isEmpty()) {
-                            Text(
-                                "이메일을 입력하세요",
-                                color = Color(0xFF666666),
-                                fontFamily = pretendardRegular
-                            )
-                        }
-                        innerTextField()
-                    }
-                }
+                placeholder = "이메일을 입력하세요",
+                onValueChange = { mail = it }
             )
         }
         item {
-            Spacer(modifier = Modifier.height(18.dp))
-            Text(text = "나이", color = Color(0xFF999999), fontFamily = pretendardRegular)
-        }
-        item {
-            Spacer(modifier = Modifier.height(3.dp))
-            BasicTextField(
+            SignUpTextField(
+                label = "나이",
                 value = age,
+                placeholder = "나이를 입력하세요",
                 onValueChange = { age = it },
-                textStyle = TextStyle(color = Color.White, fontSize = 14.sp),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                decorationBox = { innerTextField ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
-                            .padding(16.dp),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        if (age.isEmpty()) {
-                            Text(
-                                "나이를 입력하세요",
-                                color = Color(0xFF666666),
-                                fontFamily = pretendardRegular
-                            )
-                        }
-                        innerTextField()
-                    }
-                }
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
         }
         item {
-            Spacer(modifier = Modifier.height(18.dp))
-            Text(text = "파트", color = Color(0xFF999999), fontFamily = pretendardRegular)
-        }
-        item {
-            Spacer(modifier = Modifier.height(3.dp))
-            BasicTextField(
+            SignUpTextField(
+                label = "파트",
                 value = part,
-                onValueChange = { part = it },
-                textStyle = TextStyle(color = Color.White, fontSize = 14.sp),
-                decorationBox = { innerTextField ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color(0xFF2A2A2A), shape = RoundedCornerShape(8.dp))
-                            .padding(16.dp),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        if (part.isEmpty()) {
-                            Text(
-                                "파트를 입력하세요",
-                                color = Color(0xFF666666),
-                                fontFamily = pretendardRegular
-                            )
-                        }
-                        innerTextField()
-                    }
-                }
+                placeholder = "파트를 입력하세요",
+                onValueChange = { part = it }
             )
         }
         item {
