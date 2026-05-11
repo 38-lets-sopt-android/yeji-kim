@@ -42,7 +42,7 @@ class LoginViewModel(
             _uiState.value = LoginUiState.Loading
 
             runCatching {
-                RetrofitClient.apiService.signIn(
+                RetrofitClient.authService.signIn(
                     SignInRequest(id, password)
                 )
             }.onSuccess { response ->

@@ -1,7 +1,7 @@
 package com.example.letssopt.core.data.dto.client
 
 import com.example.letssopt.BuildConfig
-import com.example.letssopt.core.data.service.ApiService
+import com.example.letssopt.core.data.service.AuthService
 import com.example.letssopt.core.data.service.UserService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -33,6 +33,6 @@ object RetrofitClient {
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .build()
 
-    val apiService: ApiService = instance.create(ApiService::class.java)
+    val authService: AuthService = instance.create(AuthService::class.java)
     val userService: UserService = instance.create(UserService::class.java)
 }
