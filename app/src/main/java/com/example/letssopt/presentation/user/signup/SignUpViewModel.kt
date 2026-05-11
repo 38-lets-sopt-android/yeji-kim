@@ -59,7 +59,7 @@ class SignUpViewModel(
                 _uiState.value = SignUpUiState.Loading
 
                 runCatching {
-                    RetrofitClient.apiService.signUp(
+                    RetrofitClient.authService.signUp(
                         SignUpRequest(id, password, passwordConfirm, mail, name, age, part)
                     )
                 }.onSuccess {
