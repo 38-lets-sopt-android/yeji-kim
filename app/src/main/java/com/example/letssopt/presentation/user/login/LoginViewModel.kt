@@ -45,8 +45,12 @@ class LoginViewModel(
                 RetrofitClient.apiService.signIn(
                     SignInRequest(id, password)
                 )
-            }.onSuccess {
-                _uiState.value = LoginUiState.Success
+            }.onSuccess { response ->
+                if (response.isSuccessful) {
+                    _uiState.value = LoginUiState.Success
+                } else {
+                    _uiState.value = LoginUiState.Error("아이디 또는 비밀번호가 올바르지 않습니다.")
+                }
             }.onFailure {
                 _uiState.value = LoginUiState.Error(it.message ?: "로그인 실패")
             }

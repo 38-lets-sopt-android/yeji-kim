@@ -1,11 +1,7 @@
 package com.example.letssopt.presentation.user.signup
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.SystemBarStyle
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,24 +38,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.R
 import com.example.letssopt.core.ui.theme.LETSSOPTTheme
 import com.example.letssopt.core.ui.theme.SignUpTextField
-import android.graphics.Color as AndroidColor
-
-class SignUpActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge(
-            navigationBarStyle = SystemBarStyle.light(
-                AndroidColor.WHITE, AndroidColor.WHITE
-            )
-        )
-        setContent {
-            LETSSOPTTheme {
-                SignUpScreen(onSignUpSuccess = {})
-            }
-        }
-    }
-}
-
 
 @Composable
 fun SignUpScreen(
@@ -183,24 +161,37 @@ fun SignUpScreen(
             )
         }
         item {
-            Spacer(modifier = Modifier.height(48.dp))
-            Button(
-                onClick = {
-                    viewModel.signup(id, password, passwordConfirm, mail, name, age.toInt(), part)
-                },
-                enabled = isAllEntered,
-                modifier = Modifier
-                    .padding(bottom = 26.dp)
-                    .size(width = 320.dp, height = 52.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFE8003C),
-                    disabledContainerColor = Color(0xFF555555),
-                    contentColor = Color.White,
-                    disabledContentColor = Color(0xFF999999)
-                ),
-                shape = RoundedCornerShape(8.dp)
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("회원가입", fontFamily = pretendardBold)
+                Spacer(modifier = Modifier.height(48.dp))
+                Button(
+                    onClick = {
+                        viewModel.signup(
+                            id,
+                            password,
+                            passwordConfirm,
+                            mail,
+                            name,
+                            age.toInt(),
+                            part
+                        )
+                    },
+                    enabled = isAllEntered,
+                    modifier = Modifier
+                        .padding(bottom = 26.dp)
+                        .size(width = 320.dp, height = 52.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFE8003C),
+                        disabledContainerColor = Color(0xFF555555),
+                        contentColor = Color.White,
+                        disabledContentColor = Color(0xFF999999)
+                    ),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text("회원가입", fontFamily = pretendardBold)
+                }
             }
         }
     }
