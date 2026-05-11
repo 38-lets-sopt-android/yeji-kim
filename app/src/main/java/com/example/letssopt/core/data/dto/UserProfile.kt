@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GetUserProfile(
+data class UserProfile(
     @SerialName("success")
     val success: Boolean,
     @SerialName("status")
