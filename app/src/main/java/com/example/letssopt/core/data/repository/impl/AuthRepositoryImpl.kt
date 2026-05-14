@@ -34,9 +34,18 @@ class AuthRepositoryImpl(
     ): Result<Unit> {
         return runCatching {
             val response = autjService.signUp(
-                SignUpRequest(id, pw, mail, name, age, part)
+                SignUpRequest(
+                    loginId = id,
+                    password = pw,
+                    passwordConfirm = pw,
+                    name = name,
+                    email = mail,
+                    age = age,
+                    part = part
+                )
             )
             if (response.isSuccessful) {
+                Unit
             } else {
                 throw Exception(response.message() ?: "회원가입에 실패했습니다.")
             }
