@@ -1,14 +1,6 @@
 package com.example.letssopt.presentation.user.login
 
-import android.content.Intent
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.SystemBarStyle
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,7 +16,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -49,55 +40,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.R
 import com.example.letssopt.core.ui.theme.LETSSOPTTheme
-import com.example.letssopt.presentation.home.HomeActivity
-import com.example.letssopt.presentation.user.signup.SignUpActivity
-import android.graphics.Color as AndroidColor
-
-
-class LoginActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val pref = getSharedPreferences("LoginPref", MODE_PRIVATE)
-        val isAutoLogin = pref.getBoolean("autoLogin", false)
-
-        if (isAutoLogin) {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-            return
-        }
-        enableEdgeToEdge(
-            navigationBarStyle = SystemBarStyle.light(
-                AndroidColor.WHITE, AndroidColor.WHITE
-            )
-        )
-        setContent {
-            val signUpLauncher = rememberLauncherForActivityResult(
-                contract = ActivityResultContracts.StartActivityForResult()
-            ) { result ->
-
-            }
-            LETSSOPTTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LoginScreen(
-                        modifier = Modifier.padding(innerPadding),
-                        loginSuccess = { mail ->
-                            val intent = Intent(this, HomeActivity::class.java).apply {
-                                putExtra("mail", mail)
-                            }
-                            startActivity(intent)
-                            finish()
-                        },
-                        signUpClick = {
-                            val intent = Intent(this, SignUpActivity::class.java)
-                            signUpLauncher.launch(intent)
-                        }
-                    )
-                }
-            }
-        }
-    }
-}
 
 @Composable
 fun LoginScreen(
@@ -105,12 +47,12 @@ fun LoginScreen(
     viewModel: LoginViewModel = viewModel(
         factory = LoginViewModel.Factory
     ),
-    loginSuccess: (String) -> Unit,
+    loginSuccess: () -> Unit,
     signUpClick: () -> Unit
 ) {
     val pretendardBold = FontFamily(Font(R.font.pretendard_bold))
     val pretendardRegular = FontFamily(Font(R.font.pretendard_regular))
-    var mail by remember { mutableStateOf("") }
+    var id by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
@@ -119,7 +61,7 @@ fun LoginScreen(
     LaunchedEffect(uiState) {
         when (uiState) {
             is LoginUiState.Success -> {
-                loginSuccess("")
+                loginSuccess()
             }
 
             is LoginUiState.Error -> {
@@ -149,7 +91,7 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(26.dp))
         Text(
-            text = "이메일로 로그인",
+            text = "아이디로 로그인",
             fontSize = 20.sp,
             color = Color(0xFFFFFFFF),
             fontWeight = FontWeight.Bold,
@@ -157,15 +99,15 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(36.dp))
         Text(
-            text = "이메일",
+            text = "아이디",
             color = Color(0xFF999999),
             fontWeight = FontWeight.W400,
             fontFamily = pretendardRegular
         )
         Spacer(modifier = Modifier.height(3.dp))
         BasicTextField(
-            value = mail,
-            onValueChange = { mail = it },
+            value = id,
+            onValueChange = { id = it },
             textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             decorationBox = { innerTextField ->
@@ -176,9 +118,9 @@ fun LoginScreen(
                         .padding(16.dp),
                     contentAlignment = Alignment.CenterStart
                 ) {
-                    if (mail.isEmpty()) {
+                    if (id.isEmpty()) {
                         Text(
-                            "이메일 주소를 입력하세요",
+                            "아이디를 입력하세요",
                             color = Color(0xFF666666),
                             fontFamily = pretendardRegular
                         )
@@ -236,7 +178,7 @@ fun LoginScreen(
 
         Button(
             onClick = {
-                viewModel.login(mail, password)
+                viewModel.login(id, password)
             },
             modifier = Modifier
                 .padding(bottom = 26.dp)

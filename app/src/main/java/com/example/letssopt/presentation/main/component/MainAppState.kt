@@ -26,6 +26,7 @@ class MainAppState(
     val navController: NavHostController,
     coroutineScope: CoroutineScope,
 ) {
+    var userId: Int = 0
     private val currentDestination = navController.currentBackStackEntryFlow
         .map { it.destination }
         .stateIn(

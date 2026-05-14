@@ -25,8 +25,11 @@ fun MainNavHost(
         modifier = Modifier.padding(innerPadding)
     ) {
         loginGraph(
-            LoginSuccess = { id ->
-                appState.navController.navigate(Home)
+            LoginSuccess = {
+                appState.navController.navigate(Home) {
+                    popUpTo(Login) { inclusive = true }
+                }
+
             },
             SignUpClick = {
                 appState.navController.navigate(SignUp)

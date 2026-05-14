@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 
 sealed class LoginUiState {
     data object Idle : LoginUiState()
+    object Loading : LoginUiState()
     data object Success : LoginUiState()
     data class Error(val message: String) : LoginUiState()
 }
@@ -34,13 +35,12 @@ class LoginViewModel(
     }
 
 
-    fun login(mail: String, password: String) {
+    fun login(id: String, password: String) {
         viewModelScope.launch {
-            val result = authRepository.login(mail, password)
-            result.fold(
-                onSuccess = { _uiState.value = LoginUiState.Success },
-                onFailure = { _uiState.value = LoginUiState.Error(it.message ?: "로그인 실패") }
-            )
+            _uiState.value = LoginUiState.Loading
+            authRepository.login(id, password)
+                .onSuccess { _uiState.value = LoginUiState.Success }
+                .onFailure { _uiState.value = LoginUiState.Error(it.message ?: "로그인 실패") }
         }
     }
 }
